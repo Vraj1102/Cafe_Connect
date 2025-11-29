@@ -1,0 +1,58 @@
+INSTRUCTIONS FOR BULK RENAME
+============================
+
+After renaming the folder from "Sai Cafe" to "CafeConnect", you need to update all file paths.
+
+METHOD 1: Using VS Code (Recommended)
+--------------------------------------
+1. Open the entire "CafeConnect" folder in VS Code
+2. Press Ctrl+Shift+H (Find and Replace in Files)
+3. Find: /Sai Cafe/
+4. Replace: /CafeConnect/
+5. Click "Replace All"
+
+6. Then do another search:
+   Find: Sai Cafe
+   Replace: CafeConnect
+   Click "Replace All"
+
+METHOD 2: Using Notepad++ (Alternative)
+----------------------------------------
+1. Open Notepad++
+2. Press Ctrl+Shift+F (Find in Files)
+3. Find what: /Sai Cafe/
+4. Replace with: /CafeConnect/
+5. Directory: C:\xampp\htdocs\CafeConnect
+6. Filters: *.php
+7. Click "Replace in Files"
+
+8. Repeat for:
+   Find what: Sai Cafe
+   Replace with: CafeConnect
+
+FILES THAT DEFINITELY NEED UPDATING:
+------------------------------------
+✓ index.php (DONE)
+✓ config/conn_db.php (DONE)
+✓ database/saicafe.sql (DONE)
+✓ README.md (DONE)
+
+STILL NEED TO UPDATE:
+- All files in /admin/ folder
+- All files in /shop/ folder
+- All files in /customer/ folder
+- All files in /includes/ folder
+- auth_login.php
+- Any other PHP files with paths
+
+SEARCH PATTERNS TO FIND:
+------------------------
+1. "/Sai Cafe/" - Path references
+2. "Sai Cafe" - Text references
+3. "saicafe" - Database name (should be "cafeconnect")
+4. "Sai Group" - Copyright text
+
+IMPORTANT: 
+- Make a backup before bulk replacing!
+- Test the site after changes
+- Check all links work properly

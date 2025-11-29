@@ -1,0 +1,77 @@
+/* CafeConnect Main Styles */
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.promo-banner-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.rounded-25 {
+    border-radius: 15px;
+}
+
+.smaller-font {
+    font-size: 0.9rem;
+}
+
+.xsmall-font {
+    font-size: 0.8rem;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.hero-section {
+    min-height: 400px;
+}
+
+.feature-card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.trending-badge {
+    z-index: 10;
+}
+
+/* Custom button styles */
+.btn-primary {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.btn-primary:hover {
+    background-color: #5a6fd8;
+    border-color: #5a6fd8;
+}
+
+/* Footer styles */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .display-3 {
+        font-size: 2rem;
+    }
+}
