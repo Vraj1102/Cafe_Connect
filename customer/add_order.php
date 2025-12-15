@@ -22,28 +22,34 @@
     if(($shop_today==1 && $pkt_arr[0]==$now_date && $pkt_arr[1]>=$shop_open && $pkt_arr[1]<=$shop_close) ||
     ($shop_preorder==1 && $pkt_arr[0]==$tomorrow_date && $pkt_arr[1]>=$shop_open && $pkt_arr[1]<=$shop_close) ){
         //Order accepted.
-        //Omise Payment
-        require_once dirname(__FILE__).'/omise-php/lib/omise.php';
-        define('OMISE_API_VERSION', '2019-05-29');
-        define('OMISE_PUBLIC_KEY', 'pkey_test_5qtd0o2x3znnduisr3e');
-        define('OMISE_SECRET_KEY', 'skey_test_5qtd0o2xe2gvq2isj6d');
-        $charge = OmiseCharge::create(array(
-            'amount' => $payamount,
-            'currency' => 'THB',
-            'card' => $_POST["omiseToken"]
-        ));
-        $pay_status = $charge['status'];
-        if($pay_status=="successful"){
-            $card_finance = $charge['card']['financing'];
-            $card_brand = $charge['card']['brand'];
-            $card_lastdigit = $charge['card']['last_digits'];
-            $payment_detail = ucfirst($card_brand)." [*".$card_lastdigit."]";
-            switch($card_finance){
-                case "credit": $payment_type = "CRDC"; break;
-                case "debit": $payment_type = "DBTC"; break;
-                case "prepaid": $payment_type = "PPDC"; break;
-                default: $payment_type = "UNKN";
-            }
+        //Stripe Payment
+        require_once '../vendor/autoload.php';
+        require_once '../config/stripe_config.php';
+        
+        \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+        
+        try {
+            $charge = \Stripe\Charge::create([
+                'amount' => $payamount,
+                'currency' => STRIPE_CURRENCY,
+                'source' => $_POST['stripeToken'],
+                'description' => 'CafeConnect Order - Customer ID: ' . $_SESSION['cid']
+            ]);
+            
+            $pay_status = $charge->status;
+            
+            if($pay_status == "succeeded"){
+                $card_brand = $charge->payment_method_details->card->brand;
+                $card_lastdigit = $charge->payment_method_details->card->last4;
+                $card_funding = $charge->payment_method_details->card->funding;
+                $payment_detail = ucfirst($card_brand)." [*".$card_lastdigit."]";
+                
+                switch($card_funding){
+                    case "credit": $payment_type = "CRDC"; break;
+                    case "debit": $payment_type = "DBTC"; break;
+                    case "prepaid": $payment_type = "PPDC"; break;
+                    default: $payment_type = "UNKN";
+                }
             $amt = $charge['amount']/100;
             $payment_query = "INSERT INTO payment (c_id,p_type,p_amount,p_detail) VALUES ({$_SESSION['cid']},'{$payment_type}',{$amt},'{$payment_detail}');\n";
             $payment_result = $mysqli -> query($payment_query);
@@ -86,9 +92,13 @@
                 header("location: order_failed.php?err={$mysqli->errno}");
             }
             exit(1);
-        }else{
-            $payerr_msg = $charge['failure_message'];
+            }
+        } catch(\Stripe\Exception\CardException $e) {
+            $payerr_msg = $e->getError()->message;
             header("location: order_failed.php?pmt_err={$payerr_msg}");
+            exit(1);
+        } catch (Exception $e) {
+            header("location: order_failed.php?pmt_err=Payment processing error");
             exit(1);
         }            
     }

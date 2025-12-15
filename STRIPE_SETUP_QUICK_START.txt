@@ -1,0 +1,62 @@
+========================================
+STRIPE PAYMENT INTEGRATION - QUICK START
+========================================
+
+STEP 1: INSTALL STRIPE LIBRARY
+-------------------------------
+Open Command Prompt in C:\xampp\htdocs\CafeConnect\ and run:
+
+    composer require stripe/stripe-php
+
+(If you don't have Composer, download from: https://getcomposer.org/)
+
+
+STEP 2: GET STRIPE API KEYS
+----------------------------
+1. Sign up at: https://stripe.com
+2. Go to: Dashboard → Developers → API keys
+3. Copy your TEST keys:
+   - Publishable key (starts with pk_test_)
+   - Secret key (starts with sk_test_)
+
+
+STEP 3: CONFIGURE STRIPE
+-------------------------
+Edit file: config/stripe_config.php
+
+Replace these lines with your actual keys:
+    define('STRIPE_PUBLISHABLE_KEY', 'pk_test_YOUR_KEY_HERE');
+    define('STRIPE_SECRET_KEY', 'sk_test_YOUR_KEY_HERE');
+
+
+STEP 4: TEST PAYMENT
+--------------------
+Use these test card numbers:
+- Success: 4242 4242 4242 4242
+- Decline: 4000 0000 0000 0002
+- Expiry: Any future date (e.g., 12/25)
+- CVC: Any 3 digits (e.g., 123)
+
+
+FILES MODIFIED:
+---------------
+✓ customer/cust_cart.php - Updated checkout UI
+✓ customer/add_order.php - Updated payment processing
+✓ customer/create_checkout_session.php - NEW: Stripe session handler
+✓ customer/stripe_success.php - NEW: Payment success handler
+✓ config/stripe_config.php - NEW: Stripe configuration
+✓ README.md - Updated with Stripe instructions
+
+
+CURRENCY:
+---------
+Changed from THB (Thai Baht) to INR (Indian Rupees) to match your Rs. pricing.
+
+
+NEED HELP?
+----------
+Stripe Documentation: https://stripe.com/docs/payments/checkout
+Stripe Test Cards: https://stripe.com/docs/testing
+
+
+========================================

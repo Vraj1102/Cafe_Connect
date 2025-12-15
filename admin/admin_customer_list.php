@@ -16,6 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/Main Logo 2.jpeg" rel="icon">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>Customer List | CafeConnect</title>
 </head>
 
@@ -131,7 +135,7 @@
                 }
             ?>
 
-            <h2 class="pt-3 display-6">Customer List</h2>
+            <h2 class="pt-3 cc-text-coffee"><i class="bi bi-people"></i> Customer List</h2>
             <form class="form-floating mb-3" method="GET" action="admin_customer_list.php">
                 <div class="row g-2">
                     <div class="col">
@@ -171,10 +175,10 @@
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" name="search" value="1" class="btn btn-success">Search</button>
-                        <button type="reset" class="btn btn-danger"
+                        <button type="submit" name="search" value="1" class="btn-cc-success btn-sm">Search</button>
+                        <button type="reset" class="btn-cc-secondary btn-sm"
                             onclick="javascript: window.location='admin_customer_list.php'">Clear</button>
-                        <a href="admin_customer_add.php" class="btn btn-primary">Add new customer</a>
+                        <a href="admin_customer_add.php" class="btn-cc-primary btn-sm">Add new customer</a>
                     </div>
                 </div>
             </form>
@@ -210,8 +214,8 @@
             </div>
         </div>
         <?php } else{ ?>
-        <div class="table-responsive">
-        <table class="table rounded-5 table-light table-striped table-hover align-middle caption-top mb-5">
+        <div class="table-responsive cc-card">
+        <table class="table table-hover align-middle caption-top mb-0">
             <caption><?php echo $search_numrow;?> customer(s) <?php if(isset($_GET["search"])){?><br /><a
                     href="admin_customer_list.php" class="text-decoration-none text-danger">Clear Search
                     Result</a><?php } ?></caption>
@@ -247,12 +251,14 @@
                     </td>
                     <td><?php echo $row["c_email"];?></td>
                     <td>
-                        <a href="admin_customer_detail.php?c_id=<?php echo $row["c_id"]?>"
-                            class="btn btn-sm btn-primary">View</a>
-                        <a href="admin_customer_edit.php?c_id=<?php echo $row["c_id"]?>"
-                            class="btn btn-sm btn-outline-success">Edit</a>
-                        <a href="admin_customer_delete.php?c_id=<?php echo $row["c_id"]?>"
-                            class="btn btn-sm btn-outline-danger">Delete</a>
+                        <div class="d-flex flex-column gap-1">
+                            <a href="admin_customer_detail.php?c_id=<?php echo $row["c_id"]?>"
+                                class="btn-cc-primary btn-sm">View</a>
+                            <a href="admin_customer_edit.php?c_id=<?php echo $row["c_id"]?>"
+                                class="btn-cc-success btn-sm">Edit</a>
+                            <a href="admin_customer_delete.php?c_id=<?php echo $row["c_id"]?>"
+                                class="btn-cc-secondary btn-sm">Delete</a>
+                        </div>
                     </td>
                 </tr>
                 <?php } ?>

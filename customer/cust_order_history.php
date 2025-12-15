@@ -16,6 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/menu.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>Order History | CafeConnect</title>
 </head>
 
@@ -27,7 +31,7 @@
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
         <div class="mb-3 text-wrap" id="shop-header">
-            <h2 class="display-6 strong fw-normal">Order History</h2>
+            <h2 class="cc-text-coffee mb-4"><i class="bi bi-clock-history"></i> Order History</h2>
         </div>
 
         <nav>
@@ -54,8 +58,8 @@
                     <?php while($og_row = $ongoing_result -> fetch_array()){ ?>
                     <div class="col">
                         <a href="cust_order_detail.php?orh_id=<?php echo $og_row["orh_id"]?>"
-                            class="text-dark text-decoration-none">
-                            <div class="card mb-3">
+                            class="text-decoration-none">
+                            <div class="cc-card mb-3">
                                 <?php if($og_row["orh_orderstatus"]=="ACPT"){ ?>
                                 <div class="card-header bg-info text-dark justify-content-between">
                                     <small class="me-auto d-flex" style="font-weight: 500;">Accepted your order</small>
@@ -141,8 +145,8 @@
                     <?php while($og_row = $ongoing_result -> fetch_array()){ ?>
                     <div class="col">
                         <a href="cust_order_detail.php?orh_id=<?php echo $og_row["orh_id"]?>"
-                            class="text-dark text-decoration-none">
-                            <div class="card mb-3">
+                            class="text-decoration-none">
+                            <div class="cc-card mb-3">
                                 <?php if($og_row["orh_orderstatus"]=="ACPT"){ ?>
                                 <div class="card-header bg-info text-dark justify-content-between">
                                     <small class="me-auto d-flex" style="font-weight: 500;">Accepted your order</small>

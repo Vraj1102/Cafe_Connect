@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
     <style>
-        html {
-            height: 100%;
-        }
+        html { height: 100%; }
+        body { padding-top: 85px; }
     </style>
     <title>Shop List | CafeConnect</title>
 </head>
@@ -22,7 +22,8 @@
         <a class="nav nav-item text-decoration-none text-muted mb-3" href="#" onclick="history.back();">
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
-        <h3 class="border-bottom pb-2"><i class="bi bi-shop align-top"></i> Available Shop</h3>
+        <h2 class="cc-text-coffee mb-2"><i class="bi bi-shop"></i> Available Cafes</h2>
+        <p class="text-muted mb-4">Browse all our partner cafes</p>
         
         <!-- GRID SHOPS SELECTION -->
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
@@ -36,40 +37,37 @@
         ?>
             <!-- GRID EACH SHOPS -->
             <div class="col">
-                <a href="<?php echo "/CafeConnect/customer/shop_menu.php?s_id=".$row["s_id"]?>" class="text-decoration-none text-dark">
-                    <div class="card rounded-25">
+                <a href="<?php echo "/CafeConnect/customer/shop_menu.php?s_id=".$row["s_id"]?>" class="text-decoration-none">
+                    <div class="cc-card">
                         <img 
                         <?php
                             if(is_null($row["s_pic"])){echo "src='/CafeConnect/assets/img/default.jpg'";}
                             else{echo "src=\"/CafeConnect/assets/img/{$row['s_pic']}\"";}
                         ?> 
-                        style="width:100%; height:175px; object-fit:cover;"
-                        class="card-img-top rounded-25 img-fluid" alt="...">
-                        <div class="card-body">
-                            <h4 name="shop-name" class="card-title"><?php echo $row["s_name"]?></h4>
-                            <p class="card-subtitle">
-                                <?php 
-                                    $now = date('H:i:s');
-                                    if((($now < $row["s_openhour"])||($now > $row["s_closehour"]))||($row["s_status"]==0)){
-                                ?>
-                                <span class="badge rounded-pill bg-danger">Closed</span>
-                                <?php }else{ ?>
-                                <span class="badge rounded-pill bg-success">Open</span>
-                                <?php }
-                                    if($row["s_preorderstatus"]==1){
-                                ?>
-                                <span class="badge rounded-pill bg-success">Pre-order Available</span>
-                                <?php }else{ ?>
-                                <span class="badge rounded-pill bg-danger">Pre-order Unavailable</span>
-                                <?php }     ?>
-                            </p>
+                        class="cc-card-image" alt="<?php echo htmlspecialchars($row["s_name"])?>">
+                        <div class="p-3">
+                            <h4 name="shop-name" class="cc-text-espresso mb-2"><?php echo htmlspecialchars($row["s_name"])?></h4>
                             <?php 
                                 $open = explode(":",$row["s_openhour"]);
                                 $close = explode(":",$row["s_closehour"]);
                             ?>
-                            <p class="card-text my-2">Open hours: <?php echo $open[0].":".$open[1]." - ".$close[0].":".$close[1]?></p>
-                            <div class="text-end">
-                                <a href="<?php echo "/CafeConnect/customer/shop_menu.php?s_id=".$row["s_id"]?>" class="btn btn-sm btn-primary">Go to shop</a>
+                            <p class="text-muted small mb-2"><i class="bi bi-clock"></i> <?php echo $open[0].":".$open[1]." - ".$close[0].":".$close[1]?></p>
+                            <div class="mb-3">
+                                <?php 
+                                    $now = date('H:i:s');
+                                    if((($now < $row["s_openhour"])||($now > $row["s_closehour"]))||($row["s_status"]==0)){
+                                ?>
+                                <span class="cc-badge cc-badge-closed">Closed</span>
+                                <?php }else{ ?>
+                                <span class="cc-badge cc-badge-open">Open Now</span>
+                                <?php }
+                                    if($row["s_preorderstatus"]==1){
+                                ?>
+                                <span class="cc-badge cc-badge-preorder">Pre-order Available</span>
+                                <?php }     ?>
+                            </div>
+                            <div class="text-center">
+                                <span class="btn-cc-primary w-100 d-block">View Menu</span>
                             </div>
                         </div>
                     </div>

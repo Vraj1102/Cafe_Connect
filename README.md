@@ -11,7 +11,7 @@ A PHP-based multi-vendor cafe ordering platform for managing food orders, shops,
 - Admin panel for managing shops, food items, and orders
 - Shop owner panel for managing menus and orders
 - Pre-order functionality
-- Payment integration (Omise)
+- Payment integration (Stripe)
 
 ## Project Structure
 
@@ -70,11 +70,28 @@ Edit `config/conn_db.php` if needed:
 $mysqli = new mysqli("localhost", "root", "", "cafeconnect");
 ```
 
-### 6. Run the Project
+### 6. Install Stripe Payment Library
+1. Open Command Prompt in `C:\xampp\htdocs\CafeConnect\`
+2. Run: `composer require stripe/stripe-php`
+   - If you don't have Composer, download from https://getcomposer.org/
+3. Get Stripe API keys from https://dashboard.stripe.com/test/apikeys
+4. Edit `config/stripe_config.php` and add your keys:
+   ```php
+   define('STRIPE_PUBLISHABLE_KEY', 'pk_test_YOUR_KEY');
+   define('STRIPE_SECRET_KEY', 'sk_test_YOUR_KEY');
+   ```
+
+### 7. Run the Project
 Open your browser and navigate to:
 ```
 http://localhost/CafeConnect/
 ```
+
+### 8. Test Payment
+Use Stripe test cards:
+- Success: `4242 4242 4242 4242`
+- Decline: `4000 0000 0000 0002`
+- Any future expiry date, any 3-digit CVC
 
 ## Default Login Credentials
 
@@ -109,13 +126,11 @@ http://localhost/CafeConnect/
 - MySQL/MariaDB
 - Bootstrap 5
 - JavaScript
-- Omise Payment Gateway
+- Stripe Payment Gateway
 
-## Development Team
+## Developed By
 
 - Vraj
-- Raj
-- Saikiran
 
 ## Copyright
 

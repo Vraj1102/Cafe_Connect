@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
     <title>Add Customer | CafeConnect</title>
 </head>
 
@@ -25,7 +26,7 @@
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
         
-        <h2 class="border-bottom pb-2"><i class="bi bi-person-plus"></i> Add New Customer</h2>
+        <h2 class="cc-text-coffee mb-4"><i class="bi bi-person-plus"></i> Add New Customer</h2>
 
         <form method="POST" action="admin_customer_add_process.php" class="mt-4">
             <div class="row">
@@ -103,8 +104,8 @@
             </div>
 
             <div class="mt-4">
-                <button type="submit" class="btn btn-primary">Add Customer</button>
-                <a href="admin_customer_list.php" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn-cc-primary">Add Customer</button>
+                <a href="admin_customer_list.php" class="btn-cc-secondary">Cancel</a>
             </div>
         </form>
     </div>

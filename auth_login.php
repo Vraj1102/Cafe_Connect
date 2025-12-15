@@ -27,9 +27,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $authenticated = false;
         
-        if ($role === 'customer' || $role === 'admin') {
-            // Check customer/admin table
-            $stmt = $mysqli->prepare("SELECT c_id, c_username, c_pwd, c_firstname, c_lastname, c_type FROM customer WHERE c_username = ?");
+        if ($role === 'admin') {
+            // Check admin table
+            $stmt = $mysqli->prepare("SELECT admin_id, admin_username, admin_pwd, admin_firstname, admin_lastname FROM admin WHERE admin_username = ?");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                $admin = $result->fetch_assoc();
+                if ($admin['admin_pwd'] === $password) {
+                    $_SESSION['aid'] = $admin['admin_id'];
+                    $_SESSION['firstname'] = $admin['admin_firstname'];
+                    $_SESSION['lastname'] = $admin['admin_lastname'];
+                    $_SESSION['utype'] = 'ADMIN';
+                    header("Location: /CafeConnect/admin/admin_home.php");
+                    exit();
+                }
+            }
+        } elseif ($role === 'customer') {
+            // Check customer table
+            $stmt = $mysqli->prepare("SELECT c_id, c_username, c_pwd, c_firstname, c_lastname FROM customer WHERE c_username = ? AND c_type != 'ADM'");
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -37,24 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
                 if ($user['c_pwd'] === $password) {
-                    if ($user['c_type'] === 'ADM' && $role === 'admin') {
-                        // Admin login
-                        $_SESSION['aid'] = $user['c_id'];
-                        $_SESSION['firstname'] = $user['c_firstname'];
-                        $_SESSION['lastname'] = $user['c_lastname'];
-                        $_SESSION['utype'] = 'ADMIN';
-                        header("Location: /CafeConnect/admin/admin_home.php");
-                        exit();
-                    } elseif ($user['c_type'] !== 'ADM' && $role === 'customer') {
-                        // Customer login
-                        $_SESSION['cid'] = $user['c_id'];
-                        $_SESSION['firstname'] = $user['c_firstname'];
-                        $_SESSION['lastname'] = $user['c_lastname'];
-                        $_SESSION['utype'] = 'customer';
-                        header("Location: /CafeConnect/customer/home.php");
-                        exit();
-                    }
-                    $authenticated = true;
+                    $_SESSION['cid'] = $user['c_id'];
+                    $_SESSION['firstname'] = $user['c_firstname'];
+                    $_SESSION['lastname'] = $user['c_lastname'];
+                    $_SESSION['utype'] = 'customer';
+                    header("Location: /CafeConnect/customer/home.php");
+                    exit();
                 }
             }
         }
@@ -93,7 +99,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CafeConnect</title>
     <style>
-        body { padding-top: 76px; }
+        html, body { height: 100%; }
+        body { 
+            padding-top: 76px; 
+            display: flex;
+            flex-direction: column;
+        }
+        .content-wrapper { flex: 1 0 auto; }
+        footer { flex-shrink: 0; }
         .role-selector { display: none; }
         .role-selector.active { display: block; }
         .role-btn { cursor: pointer; transition: all 0.3s; }
@@ -105,12 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header class="navbar navbar-light fixed-top bg-light shadow-sm">
         <div class="container-fluid mx-4">
             <a href="/CafeConnect/index.php">
-                <img src="/CafeConnect/assets/img/Main Logo 2.jpeg" width="75" class="me-2" alt="CafeConnect">
+                <img src="/CafeConnect/assets/img/landing_logo.png" width="75" class="me-2" alt="CafeConnect">
             </a>
         </div>
     </header>
 
-    <div class="container mt-5 pt-5">
+    <div class="content-wrapper">
+        <div class="container mt-5 pt-5">
+            <a class="nav nav-item text-decoration-none text-muted mb-3 d-inline-block" href="/CafeConnect/index.php">
+                <i class="bi bi-arrow-left-square me-2"></i>Back to Home
+            </a>
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-lg border-0">
@@ -192,11 +209,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
+        </div>
     </div>
 
-    <footer class="text-center text-white mt-auto">
-        <div class="bg-dark p-3">
-            <p class="mb-0">© 2024 CafeConnect Team</p>
+    <footer class="text-light" style="background: linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #D2691E 100%);">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <img src="/CafeConnect/assets/img/landing_logo.png" width="30" class="me-2" alt="CafeConnect">
+                        <div>
+                            <p class="mb-0 text-white fw-bold">CafeConnect</p>
+                            <small class="text-light fst-italic">Brewing Connections</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <p class="mb-0 text-light">© 2024 CafeConnect. All rights reserved.</p>
+                </div>
+            </div>
         </div>
     </footer>
 

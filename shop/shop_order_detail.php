@@ -4,8 +4,8 @@
 <head>
     <?php 
         session_start(); 
-        include("../conn_db.php"); 
-        include('../head.php');
+        include("../config/conn_db.php"); 
+        include('../includes/head.php');
         if($_SESSION["utype"]!="shopowner"){
             header("location: ../restricted.php");
             exit(1);
@@ -15,12 +15,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/main.css" rel="stylesheet">
-    <link href="../css/menu.css" rel="stylesheet">
-    <title>Order Detail | Sai Cafe</title>
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
+    <title>Order Detail | CafeConnect</title>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
     <?php include('nav_header_shop.php')?>
 
     <?php
@@ -113,8 +116,8 @@
                                         class="list-group-item d-flex border-0 pb-3 border-bottom w-100 justify-content-between align-items-center">
                                         <div class="image-parent">
                                             <img <?php
-                                            if(is_null($ord_row["f_pic"])){echo "src='../img/default.png'";}
-                                            else{echo "src=\"../img/{$ord_row['f_pic']}\"";}
+                                            if(is_null($ord_row["f_pic"])){echo "src='../assets/img/default.jpg'";}
+                                            else{echo "src=\"../assets/img/{$ord_row['f_pic']}\"";}
                                         ?> class="img-fluid rounded"
                                                 style="width: 100px; height:100px; object-fit:cover;"
                                                 alt="<?php echo $ord_row["f_name"]?>">
@@ -166,17 +169,7 @@
         </div>
     </div>
 
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+    <?php include('../includes/footer_shop.php'); ?>
 </body>
 
 </html>

@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
     <title>Edit Customer | CafeConnect</title>
 </head>
 
@@ -25,7 +26,7 @@
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
         
-        <h2 class="border-bottom pb-2"><i class="bi bi-person-gear"></i> Edit Customer</h2>
+        <h2 class="cc-text-coffee mb-4"><i class="bi bi-person-gear"></i> Edit Customer</h2>
 
         <?php
         $cid = $_GET["c_id"];
@@ -97,8 +98,8 @@
             </div>
 
             <div class="mt-4">
-                <button type="submit" class="btn btn-primary">Update Customer</button>
-                <a href="admin_customer_detail.php?c_id=<?= $cid ?>" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn-cc-primary">Update Customer</button>
+                <a href="admin_customer_detail.php?c_id=<?= $cid ?>" class="btn-cc-secondary">Cancel</a>
             </div>
         </form>
     </div>

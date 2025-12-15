@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/Main Logo 2.jpeg" rel="icon">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Admin Dashboard | CafeConnect</title>
 </head>
@@ -24,23 +25,22 @@
 
     <?php include('nav_header_admin.php')?>
 
-    <div class="d-flex text-center text-white promo-banner-bg py-3">
+    <div class="d-flex text-center text-white py-3" style="background: linear-gradient(135deg, var(--cc-coffee-brown) 0%, var(--cc-caramel) 50%, var(--cc-caramel-light) 100%);">
         <div class="p-lg-2 mx-auto my-3">
             <h1 class="display-5 fw-normal">ADMIN DASHBOARD</h1>
-            <p class="lead fw-normal">CafeConnect Management System</p>
-            <span class="xsmall-font text-muted">Food photo created by jcomp - www.freepik.com</span>
+            <p class="lead fw-normal" style="color: var(--cc-deep-espresso);">CafeConnect Management System</p>
         </div>
     </div>
 
     <div class="container p-5" id="admin-dashboard">
-        <h2 class="border-bottom pb-2"><i class="bi bi-graph-up"></i> System Status</h2>
+        <h2 class="cc-text-coffee mb-4"><i class="bi bi-graph-up"></i> System Status</h2>
         
         <!-- Charts Section -->
         <div class="row mb-5">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="bi bi-pie-chart"></i> System Overview</h5>
+                <div class="cc-card">
+                    <div class="card-header cc-bg-latte">
+                        <h5 class="cc-text-espresso mb-0"><i class="bi bi-pie-chart"></i> System Overview</h5>
                     </div>
                     <div class="card-body">
                         <canvas id="systemChart" width="400" height="200"></canvas>
@@ -48,9 +48,9 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="bi bi-bar-chart"></i> Monthly Orders</h5>
+                <div class="cc-card">
+                    <div class="card-header cc-bg-latte">
+                        <h5 class="cc-text-espresso mb-0"><i class="bi bi-bar-chart"></i> Monthly Orders</h5>
                     </div>
                     <div class="card-body">
                         <canvas id="ordersChart" width="400" height="200"></canvas>
@@ -64,18 +64,14 @@
 
             <!-- GRID OF CUSTOMER -->
             <div class="col">
-                <a href="admin_customer_list.php" class="text-decoration-none text-dark">
-                    <div class="card rounded-5 border-danger p-2">
+                <a href="admin_customer_list.php" class="text-decoration-none">
+                    <div class="cc-card" style="border-left: 4px solid var(--cc-caramel);">
                         <div class="card-body">
-                            <h4 class="card-title">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                    class="bi bi-person-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                </svg>
+                            <h4 class="cc-text-espresso mb-3">
+                                <i class="bi bi-person-fill" style="color: var(--cc-caramel);"></i>
                                 Customer</h4>
-                            <p class="card-text my-2">
-                                <span class="h5">
+                            <p class="text-muted my-2">
+                                <span class="h5 cc-text-coffee">
                                     <?php
                                     $cust_query = "SELECT COUNT(*) AS cnt FROM customer;";
                                     $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
@@ -85,7 +81,7 @@
                                 customer(s) in the system
                             </p>
                             <div class="text-end">
-                                <a href="admin_customer_list.php" class="btn btn-sm btn-outline-dark">Go to Customer List</a>
+                                <span class="btn-cc-secondary btn-sm">Go to Customer List</span>
                             </div>
                         </div>
                     </div>
@@ -95,18 +91,14 @@
 
             <!-- GRID OF SHOP -->
             <div class="col">
-                <a href="admin_shop_list.php" class="text-decoration-none text-dark">
-                    <div class="card rounded-5 border-success p-2">
+                <a href="admin_shop_list.php" class="text-decoration-none">
+                    <div class="cc-card" style="border-left: 4px solid var(--cc-fresh-green);">
                         <div class="card-body">
-                            <h4 class="card-title">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                    class="bi bi-shop" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
-                                </svg>
+                            <h4 class="cc-text-espresso mb-3">
+                                <i class="bi bi-shop" style="color: var(--cc-fresh-green);"></i>
                                 Food Shop</h4>
-                            <p class="card-text my-2">
-                                <span class="h5">
+                            <p class="text-muted my-2">
+                                <span class="h5 cc-text-coffee">
                                     <?php
                                     $cust_query = "SELECT COUNT(*) AS cnt FROM shop;";
                                     $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
@@ -116,7 +108,7 @@
                                 food shop(s) in the system
                             </p>
                             <div class="text-end">
-                                <a href="admin_shop_list.php" class="btn btn-sm btn-outline-dark">Go to Food Shop List</a>
+                                <span class="btn-cc-secondary btn-sm">Go to Food Shop List</span>
                             </div>
                         </div>
                     </div>
@@ -126,20 +118,14 @@
 
             <!-- GRID OF FOOD -->
             <div class="col">
-                <a href="admin_food_list.php" class="text-decoration-none text-dark">
-                    <div class="card rounded-5 border-primary p-2">
+                <a href="admin_food_list.php" class="text-decoration-none">
+                    <div class="cc-card" style="border-left: 4px solid var(--cc-coffee-brown);">
                         <div class="card-body">
-                            <h4 class="card-title">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                    class="bi bi-card-list" viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path
-                                        d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                                </svg>
+                            <h4 class="cc-text-espresso mb-3">
+                                <i class="bi bi-card-list" style="color: var(--cc-coffee-brown);"></i>
                                 Menu</h4>
-                            <p class="card-text my-2">
-                                <span class="h5">
+                            <p class="text-muted my-2">
+                                <span class="h5 cc-text-coffee">
                                     <?php
                                     $cust_query = "SELECT COUNT(*) AS cnt FROM food;";
                                     $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
@@ -149,7 +135,7 @@
                                 menu(s) in the system
                             </p>
                             <div class="text-end">
-                                <a href="admin_food_list.php" class="btn btn-sm btn-outline-dark">Go to Menu List</a>
+                                <span class="btn-cc-secondary btn-sm">Go to Menu List</span>
                             </div>
                         </div>
                     </div>
@@ -159,20 +145,14 @@
 
             <!-- GRID OF ORDER -->
             <div class="col">
-                <a href="admin_order_list.php" class="text-decoration-none text-dark">
-                    <div class="card rounded-5 border-warning p-2">
+                <a href="admin_order_list.php" class="text-decoration-none">
+                    <div class="cc-card" style="border-left: 4px solid var(--cc-gold);">
                         <div class="card-body">
-                            <h4 class="card-title">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                    class="bi bi-card-list" viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path
-                                        d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-                                </svg>
+                            <h4 class="cc-text-espresso mb-3">
+                                <i class="bi bi-receipt" style="color: var(--cc-gold);"></i>
                                 Order</h4>
-                            <p class="card-text my-2">
-                                <span class="h5">
+                            <p class="text-muted my-2">
+                                <span class="h5 cc-text-coffee">
                                     <?php
                                     $cust_query = "SELECT COUNT(*) AS cnt FROM order_header;";
                                     $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
@@ -182,7 +162,7 @@
                                 order(s) in the system
                             </p>
                             <div class="text-end">
-                                <a href="admin_order_list.php" class="btn btn-sm btn-outline-dark">Go to Order List</a>
+                                <span class="btn-cc-secondary btn-sm">Go to Order List</span>
                             </div>
                         </div>
                     </div>

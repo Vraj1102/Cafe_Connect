@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="d-flex align-items-center">
-                    <img src="/CafeConnect/assets/img/Main Logo 2.jpeg" width="30" class="me-2 rounded-circle" alt="CafeConnect">
+                    <img src="/CafeConnect/assets/img/landing_logo.png" width="30" class="me-2" alt="CafeConnect">
                     <h6 class="mb-0 text-white fw-bold">CafeConnect</h6>
                 </div>
             </div>

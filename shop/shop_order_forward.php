@@ -4,7 +4,7 @@
         header("location: ../restricted.php");
         exit(1);
     }
-    include('../conn_db.php');
+    include('../config/conn_db.php');
     $orh_id = $_GET["orh_id"];
     $cur_stage = $_GET["cur_stage"];
     switch($cur_stage){

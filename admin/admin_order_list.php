@@ -14,17 +14,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>Order List | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <?php include('nav_header_admin.php')?>
 
-    <div class="container p-5" style="padding-top: 100px !important;">
-        <h2 class="border-bottom pb-2"><i class="bi bi-receipt"></i> Order Management</h2>
+    <div class="container p-5">
+        <h2 class="cc-text-coffee mb-4"><i class="bi bi-receipt"></i> Order Management</h2>
         
-        <div class="table-responsive mt-4">
-            <table class="table table-striped table-hover">
+        <div class="table-responsive cc-card">
+            <table class="table table-hover mb-0">
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
@@ -60,14 +64,14 @@
                         <td>
                             <?php 
                             switch($row['orh_orderstatus']) {
-                                case 'ACPT': echo '<span class="badge bg-warning">Accepted</span>'; break;
-                                case 'FNSH': echo '<span class="badge bg-success">Finished</span>'; break;
-                                default: echo '<span class="badge bg-secondary">' . $row['orh_orderstatus'] . '</span>';
+                                case 'ACPT': echo '<span class="cc-badge cc-badge-preorder">Accepted</span>'; break;
+                                case 'FNSH': echo '<span class="cc-badge cc-badge-open">Finished</span>'; break;
+                                default: echo '<span class="cc-badge cc-badge-closed">' . $row['orh_orderstatus'] . '</span>';
                             }
                             ?>
                         </td>
                         <td>
-                            <a href="admin_order_detail.php?orh_id=<?= $row['orh_id'] ?>" class="btn btn-sm btn-primary">View</a>
+                            <a href="admin_order_detail.php?orh_id=<?= $row['orh_id'] ?>" class="btn-cc-primary btn-sm">View</a>
                         </td>
                     </tr>
                     <?php } ?>

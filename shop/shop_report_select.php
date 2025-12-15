@@ -8,17 +8,20 @@
             header("location: ../restricted.php");
             exit(1);
         }
-        include("../conn_db.php"); 
-        include('../head.php');
+        include("../config/conn_db.php"); 
+        include('../includes/head.php');
         include("range_fn.php");
     ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/main.css" rel="stylesheet">
-    <link href="../css/login.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/revenue_date_selection.js"></script>
-    <title>Revenue Report | Sai Cafe</title>
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <script type="text/javascript" src="../assets/js/revenue_date_selection.js"></script>
+    <style>
+        body { padding-top: 85px; }
+    </style>
+    <title>Revenue Report | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -90,17 +93,7 @@
     </div>
 
 
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+    <?php include('../includes/footer_shop.php'); ?>
 </body>
 
 </html>

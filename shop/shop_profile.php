@@ -8,18 +8,22 @@
             header("location: ../restricted.php");
             exit(1);
         }
-        include("../conn_db.php"); 
-        include('../head.php');
+        include("../config/conn_db.php"); 
+        include('../includes/head.php');
         $s_id = $_SESSION["sid"];
     ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/main.css" rel="stylesheet">
-    <title>Shop Profile | Sai Cafe</title>
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
+    <title>Shop Profile | CafeConnect</title>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
     <?php include('nav_header_shop.php');?>
 
     <div class="container px-5 pt-4" id="profile-body">
@@ -139,8 +143,8 @@
             <div class="rounded-25 mb-4" id="shop-img" style="
                     background: url(
                         <?php
-                            if(is_null($row["s_pic"])){echo "'../img/shop3.jpg'";}
-                            else{echo "'../img/{$row['s_pic']}'";}
+                            if(is_null($row["s_pic"])){echo "'../assets/img/default.jpg'";}
+                            else{echo "'../assets/img/{$row['s_pic']}'";}
                         ?> 
                     ) center; height: 225px;
                     background-size: cover; background-repeat: no-repeat;
@@ -191,17 +195,7 @@
 
 
 
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+    <?php include('../includes/footer_shop.php'); ?>
 </body>
 
 </html>

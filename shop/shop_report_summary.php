@@ -8,8 +8,8 @@
             header("location: ../restricted.php");
             exit(1);
         }
-        include("../conn_db.php"); 
-        include('../head.php');
+        include("../config/conn_db.php"); 
+        include('../includes/head.php');
         include("range_fn.php");
         $s_id = $_SESSION["sid"];
         // Revenue Summary Preparation Part
@@ -47,11 +47,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/main.css" rel="stylesheet">
-    <title>Shop Revenue Report | Sai Cafe</title>
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
+    <title>Shop Revenue Report | CafeConnect</title>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
     <?php
         echo "<div class='noprint'>";
         include('nav_header_shop.php');
@@ -187,21 +191,7 @@
     </div>
 
 
-    </div>
-    <!-- END GRID SHOP SELECTION -->
-
-    </div>
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+    <?php include('../includes/footer_shop.php'); ?>
 </body>
 
 </html>

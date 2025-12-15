@@ -17,6 +17,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/menu.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>My Cart | CafeConnect</title>
 </head>
 
@@ -98,12 +102,8 @@
             <?php } 
                 }  ?>
 
-            <h2 class="py-3 display-6 border-bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cart"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg> My Cart
+            <h2 class="py-3 cc-text-coffee">
+                <i class="bi bi-cart" style="font-size: 2rem;"></i> My Cart
             </h2>
         </div>
 
@@ -357,8 +357,7 @@
                         </div>
                         <div class="col">
                             <?php if($no_order){ ?>
-                            <button type="submit" class="w-100 btn btn-danger disabled" name="place_order" id="place_order"
-                                disabled></button>
+                            <button type="button" class="w-100 btn btn-danger disabled" disabled>
                                 <?php
                                     if(!$min_cost){
                                         echo "Your order is less than minimum amount.";
@@ -368,18 +367,51 @@
                                         echo "Cannot proceed with payment";
                                     }
                                 ?>
-                            
-                            <?php }else{ ?>
-                            <script type="text/javascript" src="https://cdn.omise.co/omise.js"
-                                data-key="pkey_test_5qtd0o2x3znnduisr3e"
-                                data-image="https://drive.google.com/file/d/1fen9-eomrWPnZhmcQ2u-sqHLRex4ir4U/view?usp=sharing"
-                                data-frame-label="CafeConnect"
-                                data-button-label="Proceed with payment"
-                                data-submit-label="Submit"
-                                data-locale="en"
-                                data-location="no"
-                                data-amount="<?php echo $order_cost*100;?>"
-                                data-currency="THB">
+                            </button>
+                            <?php }else{ 
+                                require_once '../config/stripe_config.php';
+                            ?>
+                            <script src="https://js.stripe.com/v3/"></script>
+                            <button type="button" class="w-100 btn btn-cc-primary" id="checkout-button">
+                                <i class="bi bi-credit-card"></i> Proceed with Payment
+                            </button>
+                            <script>
+                                var stripe = Stripe('<?php echo STRIPE_PUBLISHABLE_KEY; ?>');
+                                var checkoutButton = document.getElementById('checkout-button');
+                                
+                                checkoutButton.addEventListener('click', function() {
+                                    var pickuptime = document.getElementById('pickuptime').value;
+                                    if(!pickuptime){
+                                        alert('Please select pickup time');
+                                        return;
+                                    }
+                                    
+                                    checkoutButton.disabled = true;
+                                    checkoutButton.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
+                                    
+                                    fetch('create_checkout_session.php', {
+                                        method: 'POST',
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                        body: 'pickuptime=' + encodeURIComponent(pickuptime) + '&amount=<?php echo $order_cost*100; ?>'
+                                    })
+                                    .then(function(response) { return response.json(); })
+                                    .then(function(session) {
+                                        return stripe.redirectToCheckout({ sessionId: session.id });
+                                    })
+                                    .then(function(result) {
+                                        if (result.error) {
+                                            alert(result.error.message);
+                                            checkoutButton.disabled = false;
+                                            checkoutButton.innerHTML = '<i class="bi bi-credit-card"></i> Proceed with Payment';
+                                        }
+                                    })
+                                    .catch(function(error) {
+                                        console.error('Error:', error);
+                                        alert('Payment error. Please try again.');
+                                        checkoutButton.disabled = false;
+                                        checkoutButton.innerHTML = '<i class="bi bi-credit-card"></i> Proceed with Payment';
+                                    });
+                                });
                             </script>
                             <?php } ?>
                         </div>
@@ -406,10 +438,4 @@
     </div>
     <?php include('../includes/footer_customer.php'); ?>
 </body>
-
-<!-- Apply class to omise payment button -->
-<script type="text/javascript">
-    var pay_btn = document.getElementsByClassName("omise-checkout-button");
-    pay_btn[0].classList.add("w-100","btn","btn-primary");
-</script>
 </html>

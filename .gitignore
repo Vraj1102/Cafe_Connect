@@ -1,4 +1,12 @@
-# IDE and Editor files
+# Composer dependencies
+/vendor/
+composer.lock
+
+# Sensitive configuration files
+config/stripe_config.php
+config/conn_db.php
+
+# IDE files
 .vscode/
 .idea/
 *.swp
@@ -8,15 +16,9 @@
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Config files with sensitive data
-config/conn_db.php
-
-# Uploaded images (keep directory structure)
-assets/img/*
-!assets/img/.gitkeep
-
-# Logs
+# Log files
 *.log
 
 # Temporary files

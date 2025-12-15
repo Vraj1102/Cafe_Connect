@@ -7,10 +7,12 @@
 </style>
     <div class="container-fluid mx-3">
         <div class="navbar-brand d-flex align-items-center">
-            <img src="/CafeConnect/assets/img/Main Logo 2.jpeg" width="60" class="me-3 rounded-circle" alt="CafeConnect">
+            <a href="<?= isset($_SESSION['cid']) ? '/CafeConnect/customer/home.php' : '/CafeConnect/index.php' ?>" class="text-decoration-none">
+                <img src="/CafeConnect/assets/img/landing_logo.png" height="55" class="me-3" alt="CafeConnect" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); object-fit: contain;">
+            </a>
             <div>
-                <h4 class="mb-0 text-white fw-bold">CafeConnect</h4>
-                <small class="text-light fst-italic" style="font-size: 0.7rem;">Brewing Connections</small>
+                <h4 class="mb-0 text-white fw-bold" style="font-size: 1.6rem; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); letter-spacing: 1px;">CafeConnect</h4>
+                <small class="text-white fst-italic fw-bold" style="font-size: 0.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); letter-spacing: 0.5px; display: block; margin-top: -2px;">Brewing Connections</small>
             </div>
         </div>
         <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"

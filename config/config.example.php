@@ -1,6 +1,6 @@
 <?php
     // Database Configuration
-    $mysqli = new mysqli("localhost", "root", "", "saicafe");
+    $mysqli = new mysqli("localhost", "root", "", "cafeconnect");
 
     if($mysqli -> connect_errno){
         header("location: ../includes/db_error.php");
