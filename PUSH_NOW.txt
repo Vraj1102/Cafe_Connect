@@ -1,0 +1,90 @@
+========================================
+READY TO PUSH TO GITHUB!
+========================================
+
+Your project is ready to be pushed to:
+https://github.com/Vraj1102/Cafe_Connect
+
+========================================
+OPTION 1: Use Batch Script (EASIEST)
+========================================
+
+Double-click this file:
+    push_to_github.bat
+
+Then enter your GitHub credentials when prompted.
+
+========================================
+OPTION 2: Use Command Line
+========================================
+
+1. Open Command Prompt (cmd)
+
+2. Navigate to project:
+   cd C:\xampp\htdocs\CafeConnect
+
+3. Push to GitHub:
+   git push -u origin main
+
+4. When prompted:
+   Username: Vraj1102
+   Password: [Your Personal Access Token]
+
+========================================
+GET PERSONAL ACCESS TOKEN
+========================================
+
+If you don't have a token:
+
+1. Go to: https://github.com/settings/tokens
+
+2. Click "Generate new token (classic)"
+
+3. Name: CafeConnect
+
+4. Select: ✅ repo (all permissions)
+
+5. Click "Generate token"
+
+6. COPY THE TOKEN (you won't see it again!)
+
+7. Use this token as your password
+
+========================================
+WHAT WILL BE PUSHED?
+========================================
+
+✅ All source code (PHP, HTML, CSS, JS)
+✅ Database schema (cafeconnect.sql)
+✅ Design system files
+✅ Documentation
+✅ Example config files
+
+❌ NOT pushed (for security):
+   - config/stripe_config.php (your Stripe keys)
+   - config/conn_db.php (database credentials)
+   - /vendor/ folder (Composer dependencies)
+
+========================================
+AFTER PUSHING
+========================================
+
+1. Visit: https://github.com/Vraj1102/Cafe_Connect
+
+2. You should see all your files!
+
+3. Update repository description
+
+4. Add topics/tags
+
+5. Share with others!
+
+========================================
+NEED HELP?
+========================================
+
+Read: GITHUB_PUSH_GUIDE.md
+
+Or contact GitHub support.
+
+========================================
