@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/menu.css" rel="stylesheet">
-    <title>Order Detail | Sai Cafe</title>
+    <title>Order Detail | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -31,9 +31,26 @@
             <h2 class="pt-3 display-6">Order Detail</h2>
 
             <?php
-                $orh_id = $_GET["orh_id"];
+                // validate input and fetch order header safely
+                $orh_id = isset($_GET["orh_id"]) ? (int)$_GET["orh_id"] : 0;
+                if($orh_id <= 0){
+                    echo '<div class="alert alert-warning">Invalid order id.</div>';
+                    include('../includes/footer_customer.php');
+                    exit;
+                }
                 $orh_query = "SELECT * FROM order_header WHERE orh_id = {$orh_id}";
-                $orh_arr = $mysqli -> query($orh_query) -> fetch_array();
+                $orh_res = $mysqli->query($orh_query);
+                if(!$orh_res){
+                    echo '<div class="alert alert-danger">Order lookup failed.</div>';
+                    include('../includes/footer_customer.php');
+                    exit;
+                }
+                $orh_arr = $orh_res->fetch_array();
+                if(!$orh_arr){
+                    echo '<div class="alert alert-info">Order not found.</div>';
+                    include('../includes/footer_customer.php');
+                    exit;
+                }
             ?>
 
             <div class="row row-cols-1 row-cols-md-2">
@@ -53,9 +70,10 @@
                         <li class="list-item">Order #<?php echo $orh_arr["orh_refcode"];?></li>
                         <li class="list-item">From 
                             <?php
-                                $shop_query = "SELECT s_name FROM shop WHERE s_id = {$orh_arr['s_id']};";
-                                $shop_arr = $mysqli -> query($shop_query) -> fetch_array();
-                                echo $shop_arr["s_name"];
+                                    $shop_query = "SELECT s_name FROM shop WHERE s_id = {$orh_arr['s_id']} LIMIT 1;";
+                                    $shop_res = $mysqli->query($shop_query);
+                                    $shop_arr = $shop_res ? $shop_res->fetch_array() : null;
+                                    echo $shop_arr ? htmlspecialchars($shop_arr["s_name"]) : 'Unknown Shop';
                             ?>
                         </li>
                     </ul>
@@ -87,9 +105,12 @@
                     </div>
                     <div class="col row row-cols-1 row-cols-md-2 border-bottom">
                         <?php 
-                            $ord_query = "SELECT f.f_name,f.f_pic,ord.ord_amount,ord.ord_buyprice,ord_note FROM order_detail ord INNER JOIN food f ON ord.f_id = f.f_id WHERE ord.orh_id = {$orh_id}";
-                            $ord_result = $mysqli -> query($ord_query);
-                            while($ord_row = $ord_result -> fetch_array()){
+                            $ord_query = "SELECT f.f_name,f.f_pic,ord.ord_amount,ord.ord_buyprice,ord.ord_note FROM order_detail ord INNER JOIN food f ON ord.f_id = f.f_id WHERE ord.orh_id = {$orh_id}";
+                            $ord_result = $mysqli->query($ord_query);
+                            if(!$ord_result || $ord_result->num_rows == 0){
+                                echo '<div class="text-muted">No items found for this order.</div>';
+                            } else {
+                                while($ord_row = $ord_result->fetch_array()){
                         ?>
                         <div class="col">
                             <ul class="list-group">
@@ -97,25 +118,23 @@
                                 
                                 <li class="list-group-item d-flex border-0 pb-3 border-bottom w-100 justify-content-between align-items-center">
                                     <div class="image-parent">
-                                        <img 
-                                        <?php
-                                            if(is_null($ord_row["f_pic"])){echo "src='/Sai Cafe/assets/img/default.png'";}
-                                            else{echo "src=\"img/{$ord_row['f_pic']}\"";}
-                                        ?>
-                                        class="img-fluid rounded"
-                                        style="width: 100px; height:100px; object-fit:cover;" alt="<?php echo $ord_row["f_name"]?>">
-                                        </div>
+                                        <?php if(empty($ord_row['f_pic'])) { ?>
+                                            <img src="/CafeConnect/assets/img/default.jpg" class="img-fluid rounded" style="width:100px;height:100px;object-fit:cover;" alt="<?php echo htmlspecialchars($ord_row['f_name']); ?>">
+                                        <?php } else { ?>
+                                            <img src="/CafeConnect/assets/img/<?php echo htmlspecialchars($ord_row['f_pic']); ?>" class="img-fluid rounded" style="width:100px;height:100px;object-fit:cover;" alt="<?php echo htmlspecialchars($ord_row['f_name']); ?>">
+                                        <?php } ?>
+                                    </div>
                                     <div class="ms-3 me-auto">
-                                        <div class="fw-normal"><span class="h5"><?php echo $ord_row["ord_amount"]?>x </span><?php echo $ord_row["f_name"]?>
-                                            <p><?php printf("%.2f Rs. <small class='text-muted'>(%.2f Rs. each)</small>",$ord_row["ord_buyprice"]*$ord_row["ord_amount"],$ord_row["ord_buyprice"]);?><br />
-                                                <span class="text-muted small"><?php echo $ord_row["ord_note"]?></span>
+                                        <div class="fw-normal"><span class="h5"><?php echo (int)$ord_row['ord_amount']; ?>x </span><?php echo htmlspecialchars($ord_row['f_name']); ?>
+                                            <p><?php printf("%.2f Rs. <small class='text-muted'>(%.2f Rs. each)</small>",$ord_row['ord_buyprice']*$ord_row['ord_amount'],$ord_row['ord_buyprice']);?><br />
+                                                <span class="text-muted small"><?php echo htmlspecialchars($ord_row['ord_note']); ?></span>
                                             </p>
                                         </div>
                                 </li>
                                 <!-- END CART ITEM -->
                             </ul>
                         </div>
-                        <?php } ?>
+                        <?php } } ?>
                     </div>
                     <div class="col my-3">
                         <ul class="list-inline justify-content-between">
@@ -123,14 +142,16 @@
                             <li class="list-inline-item fw-bold h4">
                                 <?php
                                     $gt_query = "SELECT SUM(ord_amount*ord_buyprice) AS gt FROM order_detail WHERE orh_id = {$orh_id}";
-                                    $gt_arr = $mysqli -> query($gt_query) -> fetch_array();
-                                    printf("%.2f Rs.",$gt_arr["gt"]);
+                                    $gt_res = $mysqli->query($gt_query);
+                                    $gt_arr = $gt_res ? $gt_res->fetch_array() : array('gt'=>0);
+                                    printf("%.2f Rs.",($gt_arr["gt"]?:0));
                                 ?>
                             </li>
                             <li class="list-item fw-light small">Pay by 
                                 <?php 
                                     $py_query = "SELECT p_type,p_detail FROM payment WHERE p_id = {$orh_arr['p_id']} LIMIT 0,1;";
-                                    $py_arr = $mysqli -> query($py_query) -> fetch_array();
+                                    $py_res = $mysqli->query($py_query);
+                                    $py_arr = $py_res ? $py_res->fetch_array() : array('p_type'=>'','p_detail'=>'');
                                     switch($py_arr["p_type"]){
                                         case "CRDC": echo "Credit Card"; break;
                                         case "DBTC": echo "Debit Card"; break;
@@ -140,7 +161,7 @@
                                         case "PYPL": echo "Paypal"; break;
                                         default: echo "Default Payment Channel";
                                     }
-                                    echo " ".$py_arr["p_detail"];
+                                    echo " ".htmlspecialchars($py_arr["p_detail"]);
                                 ?>
                             </li>
                         </ul>
@@ -148,19 +169,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+        </div>
+        </div>
+        <?php include('../includes/footer_customer.php'); ?>
 </body>
 
 </html>

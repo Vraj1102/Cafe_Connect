@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/login.css" rel="stylesheet">
 
-    <title>SHOP LOG IN | Sai Cafe</title>
+    <title>SHOP LOG IN | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <header class="navbar navbar-expand-md navbar-light fixed-top bg-light shadow-sm mb-auto">
         <div class="container-fluid mx-4">
-            <a href="/Sai Cafe/index.php">
-                <img src="/Sai Cafe/assets/img/Leaf logo.jpeg" width="75" class="me-2" alt="Sai Cafe Logo">
+            <a href="/CafeConnect/index.php">
+                <img src="/CafeConnect/assets/img/landing_logo.png" width="75" class="me-2" alt="CafeConnect Logo">
             </a>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
@@ -46,17 +46,7 @@
         </form>
     </div>
 
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+        <?php include('../includes/footer_customer.php'); ?>
 </body>
 
 </html>

@@ -22,8 +22,9 @@ $s_closehour = $_POST['s_closehour'];
 $s_status = $_POST['s_status'];
 $s_preorderstatus = $_POST['s_preorderstatus'];
 
-$stmt = $mysqli->prepare("UPDATE shop SET s_name = ?, s_location = ?, s_email = ?, s_phoneno = ?, s_openhour = ?, s_closehour = ?, s_status = ?, s_preorderStatus = ? WHERE s_id = ?");
-$stmt->bind_param("sssssssii", $s_name, $s_location, $s_email, $s_phoneno, $s_openhour, $s_closehour, $s_status, $s_preorderstatus, $s_id);
+// Use correct column name 's_preorderstatus' and correct bind types (6 strings, 3 integers)
+$stmt = $mysqli->prepare("UPDATE shop SET s_name = ?, s_location = ?, s_email = ?, s_phoneno = ?, s_openhour = ?, s_closehour = ?, s_status = ?, s_preorderstatus = ? WHERE s_id = ?");
+$stmt->bind_param("ssssssiii", $s_name, $s_location, $s_email, $s_phoneno, $s_openhour, $s_closehour, $s_status, $s_preorderstatus, $s_id);
 
 if ($stmt->execute()) {
     header("Location: admin_shop_detail.php?s_id=$s_id&success=1");

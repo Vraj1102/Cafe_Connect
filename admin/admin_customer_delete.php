@@ -28,13 +28,23 @@
         <h2 class="border-bottom pb-2"><i class="bi bi-trash"></i> Delete Customer</h2>
 
         <?php
-        $cid = $_GET["c_id"];
+        if (!isset($_GET['c_id']) || !is_numeric($_GET['c_id'])) {
+            echo '<div class="alert alert-warning">Missing or invalid customer id.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
+        $cid = (int) $_GET['c_id'];
         $query = "SELECT * FROM customer WHERE c_id = ?";
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param("i", $cid);
         $stmt->execute();
         $result = $stmt->get_result();
         $customer = $result->fetch_array();
+        if (!$customer) {
+            echo '<div class="alert alert-warning">Customer not found.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
         ?>
 
         <div class="alert alert-danger mt-4">
@@ -54,20 +64,6 @@
                     
                     <dt class="col-sm-3">Email:</dt>
                     <dd class="col-sm-9"><?= htmlspecialchars($customer['c_email']) ?></dd>
-                    
-                    <dt class="col-sm-3">Type:</dt>
-                    <dd class="col-sm-9">
-                        <?php 
-                        switch($customer['c_type']) {
-                            case 'STD': echo 'Student'; break;
-                            case 'INS': echo 'Instructor'; break;
-                            case 'STF': echo 'Staff'; break;
-                            case 'GUE': echo 'Guest'; break;
-                            case 'ADM': echo 'Admin'; break;
-                            default: echo 'Others';
-                        }
-                        ?>
-                    </dd>
                 </dl>
                 
                 <form method="POST" action="admin_customer_delete_confirm.php" class="mt-4">

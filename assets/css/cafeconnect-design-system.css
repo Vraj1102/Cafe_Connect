@@ -1,0 +1,337 @@
+/* ============================================
+   CAFECONNECT DESIGN SYSTEM
+   Professional Coffee Shop Experience
+   Inspired by Starbucks & Tim Hortons
+   ============================================ */
+
+/* ============================================
+   1. COLOR PALETTE
+   ============================================ */
+:root {
+    /* Primary Colors */
+    --cc-coffee-brown: #6F4E37;
+    --cc-warm-cream: #F4F1EA;
+    --cc-deep-espresso: #2C1810;
+    --cc-caramel: #D2691E;
+    --cc-fresh-green: #00704A;
+    
+    /* Secondary Colors */
+    --cc-light-latte: #E8DCC4;
+    --cc-rich-mocha: #4A3728;
+    --cc-soft-white: #FFFFFF;
+    --cc-warm-beige: #C9B8A0;
+    
+    /* Accent Colors */
+    --cc-gold: #D4AF37;
+    --cc-cream-foam: #FFF8E7;
+    --cc-dark-roast: #1A0F0A;
+    
+    /* Status Colors */
+    --cc-success: #00704A;
+    --cc-warning: #F2A900;
+    --cc-danger: #D32F2F;
+    --cc-info: #0288D1;
+    
+    /* Neutral Grays */
+    --cc-gray-50: #FAFAFA;
+    --cc-gray-100: #F5F5F5;
+    --cc-gray-200: #EEEEEE;
+    --cc-gray-300: #E0E0E0;
+    --cc-gray-400: #BDBDBD;
+    --cc-gray-500: #9E9E9E;
+    --cc-gray-600: #757575;
+    --cc-gray-700: #616161;
+    --cc-gray-800: #424242;
+    --cc-gray-900: #212121;
+}
+
+/* ============================================
+   2. TYPOGRAPHY
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cc-deep-espresso);
+    background-color: var(--cc-warm-cream);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--cc-deep-espresso);
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 3rem; font-weight: 700; }
+h2 { font-size: 2.5rem; font-weight: 600; }
+h3 { font-size: 2rem; font-weight: 600; }
+h4 { font-size: 1.5rem; font-weight: 600; }
+h5 { font-size: 1.25rem; font-weight: 500; }
+h6 { font-size: 1rem; font-weight: 500; }
+
+/* Accent Typography */
+.cc-accent-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+
+/* ============================================
+   3. BUTTONS
+   ============================================ */
+.btn-cc-primary {
+    background: linear-gradient(135deg, var(--cc-coffee-brown) 0%, var(--cc-rich-mocha) 100%);
+    border: none;
+    color: var(--cc-soft-white);
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(111, 78, 55, 0.3);
+}
+
+.btn-cc-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(111, 78, 55, 0.4);
+    background: linear-gradient(135deg, var(--cc-rich-mocha) 0%, var(--cc-coffee-brown) 100%);
+    color: var(--cc-soft-white);
+}
+
+.btn-cc-secondary {
+    background: var(--cc-warm-cream);
+    border: 2px solid var(--cc-coffee-brown);
+    color: var(--cc-coffee-brown);
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-cc-secondary:hover {
+    background: var(--cc-coffee-brown);
+    color: var(--cc-soft-white);
+    transform: translateY(-2px);
+}
+
+.btn-cc-success {
+    background: var(--cc-fresh-green);
+    color: var(--cc-soft-white);
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-cc-success:hover {
+    background: #005a3c;
+    transform: translateY(-2px);
+    color: var(--cc-soft-white);
+}
+
+/* ============================================
+   4. CARDS
+   ============================================ */
+.cc-card {
+    background: var(--cc-soft-white);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(44, 24, 16, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid var(--cc-gray-200);
+}
+
+.cc-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(44, 24, 16, 0.15);
+}
+
+.cc-card-premium {
+    background: linear-gradient(135deg, var(--cc-cream-foam) 0%, var(--cc-soft-white) 100%);
+    border: 2px solid var(--cc-gold);
+}
+
+.cc-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
+}
+
+/* ============================================
+   5. BADGES & LABELS
+   ============================================ */
+.cc-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cc-badge-open {
+    background: var(--cc-fresh-green);
+    color: var(--cc-soft-white);
+}
+
+.cc-badge-closed {
+    background: var(--cc-gray-400);
+    color: var(--cc-soft-white);
+}
+
+.cc-badge-preorder {
+    background: var(--cc-caramel);
+    color: var(--cc-soft-white);
+}
+
+.cc-badge-trending {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: var(--cc-soft-white);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ============================================
+   6. FORMS
+   ============================================ */
+.cc-form-control {
+    border: 2px solid var(--cc-gray-300);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--cc-soft-white);
+}
+
+.cc-form-control:focus {
+    border-color: var(--cc-coffee-brown);
+    box-shadow: 0 0 0 4px rgba(111, 78, 55, 0.1);
+    outline: none;
+}
+
+.cc-form-label {
+    font-weight: 600;
+    color: var(--cc-deep-espresso);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   7. NAVIGATION
+   ============================================ */
+.cc-navbar {
+    background: linear-gradient(135deg, var(--cc-coffee-brown) 0%, var(--cc-rich-mocha) 100%);
+    box-shadow: 0 4px 20px rgba(44, 24, 16, 0.15);
+    padding: 1rem 0;
+}
+
+.cc-nav-link {
+    color: var(--cc-soft-white);
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.cc-nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--cc-soft-white);
+}
+
+/* ============================================
+   8. SPACING SYSTEM
+   ============================================ */
+.cc-spacing-xs { padding: 8px; }
+.cc-spacing-sm { padding: 16px; }
+.cc-spacing-md { padding: 24px; }
+.cc-spacing-lg { padding: 32px; }
+.cc-spacing-xl { padding: 48px; }
+.cc-spacing-xxl { padding: 64px; }
+
+/* ============================================
+   9. SHADOWS
+   ============================================ */
+.cc-shadow-sm { box-shadow: 0 2px 8px rgba(44, 24, 16, 0.08); }
+.cc-shadow-md { box-shadow: 0 4px 20px rgba(44, 24, 16, 0.12); }
+.cc-shadow-lg { box-shadow: 0 8px 32px rgba(44, 24, 16, 0.16); }
+.cc-shadow-xl { box-shadow: 0 12px 48px rgba(44, 24, 16, 0.20); }
+
+/* ============================================
+   10. ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.cc-animate-fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.cc-animate-slide-in {
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* ============================================
+   11. UTILITY CLASSES
+   ============================================ */
+.cc-rounded-sm { border-radius: 8px; }
+.cc-rounded-md { border-radius: 12px; }
+.cc-rounded-lg { border-radius: 16px; }
+.cc-rounded-xl { border-radius: 24px; }
+.cc-rounded-full { border-radius: 9999px; }
+
+.cc-text-coffee { color: var(--cc-coffee-brown); }
+.cc-text-espresso { color: var(--cc-deep-espresso); }
+.cc-text-caramel { color: var(--cc-caramel); }
+.cc-text-green { color: var(--cc-fresh-green); }
+
+.cc-bg-cream { background-color: var(--cc-warm-cream); }
+.cc-bg-latte { background-color: var(--cc-light-latte); }
+.cc-bg-white { background-color: var(--cc-soft-white); }
+
+/* ============================================
+   12. RESPONSIVE BREAKPOINTS
+   ============================================ */
+/* Mobile: < 576px */
+/* Tablet: 576px - 768px */
+/* Desktop: 768px - 1200px */
+/* Large Desktop: > 1200px */
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+    
+    .cc-card {
+        margin-bottom: 1rem;
+    }
+}

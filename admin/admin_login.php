@@ -2,19 +2,22 @@
 <html lang="en">
 
 <head>
-    <?php session_start(); include("../config/conn_db.php"); include('../includes/head.php');?>
+    <?php session_start(); 
+    include("../config/conn_db.php"); 
+    include('../includes/head.php');
+    ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="../assets/css/login.css" rel="stylesheet">
-    <link href="../img/ICON_F.png" rel="icon">
-    <title>Admin Login | Sai Cafe</title>
+    <link href="../img/landing-logo.png" rel="icon">
+    <title>Admin Login | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <header class="navbar navbar-light fixed-top bg-light shadow-sm mb-auto">
         <div class="container-fluid mx-4">
-            <a href="/Sai Cafe/index.php">
-                <img src="/Sai Cafe/assets/img/Leaf logo.jpeg" width="75" class="me-2" alt="Sai Cafe Logo">
+            <a href="/CafeConnect/index.php">
+                <img src="/D:\xampp\htdocs\CafeConnect\assets\img\landing_logo.png" width="75" class="me-2" alt="CafeConnect Logo">
             </a>
         </div>
     </header>
@@ -34,10 +37,7 @@
         </form>
     </div>
 
-    <footer
-        class="footer d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-auto bg-secondary text-light">
-        <span class="smaller-font">&copy; 2024 Sai Group</span>
-    </footer>
+    <?php include('../includes/footer_customer.php'); ?>
 </body>
 
 </html>

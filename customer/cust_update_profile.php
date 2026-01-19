@@ -35,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/login.css" rel="stylesheet">
-    <title>Update profile | Sai Cafe</title>
+    <title>Update profile | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -46,10 +46,22 @@
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
         <?php 
-            //Select customer record from database
-            $query = "SELECT c_firstname,c_lastname,c_email,c_gender,c_type FROM customer WHERE c_id = {$_SESSION['cid']} LIMIT 0,1";
-            $result = $mysqli ->query($query);
-            $row = $result -> fetch_array();
+            // Select customer record from database (defensive)
+            $cid = isset($_SESSION['cid']) ? (int)$_SESSION['cid'] : 0;
+            $query = "SELECT c_firstname,c_lastname,c_email,c_gender,c_type FROM customer WHERE c_id = {$cid} LIMIT 0,1";
+            $result = $mysqli->query($query);
+            if ($result && $result->num_rows > 0) {
+                $row = $result->fetch_array();
+                $result->free();
+            } else {
+                $row = array(
+                    'c_firstname' => isset($_SESSION['firstname']) ? $_SESSION['firstname'] : '',
+                    'c_lastname' => isset($_SESSION['lastname']) ? $_SESSION['lastname'] : '',
+                    'c_email' => '',
+                    'c_gender' => 'N',
+                    'c_type' => ''
+                );
+            }
         ?>
         <form method="POST" action="cust_update_profile.php" class="form-floating">
             <h2 class="mt-4 mb-3 fw-normal text-bold"><i class="bi bi-pencil-square me-2"></i>Update Profile</h2>
@@ -89,16 +101,9 @@
         </form>
     </div>
 
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran </p>
-  </div>
-  <!-- Copyright -->
+    <footer>
+            <?php include('../includes/footer_customer.php'); ?>
+
 </footer>
 </body>
 

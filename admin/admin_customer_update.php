@@ -18,7 +18,6 @@ $email = trim($_POST['email']);
 $firstname = trim($_POST['firstname']);
 $lastname = trim($_POST['lastname']);
 $gender = $_POST['gender'];
-$type = $_POST['type'];
 
 // Check for duplicate username (excluding current user)
 $stmt = $mysqli->prepare("SELECT c_id FROM customer WHERE c_username = ? AND c_id != ?");
@@ -43,8 +42,8 @@ if ($result->num_rows > 0) {
 }
 
 // Update customer
-$stmt = $mysqli->prepare("UPDATE customer SET c_username = ?, c_email = ?, c_firstname = ?, c_lastname = ?, c_gender = ?, c_type = ? WHERE c_id = ?");
-$stmt->bind_param("ssssssi", $username, $email, $firstname, $lastname, $gender, $type, $c_id);
+$stmt = $mysqli->prepare("UPDATE customer SET c_username = ?, c_email = ?, c_firstname = ?, c_lastname = ?, c_gender = ? WHERE c_id = ?");
+$stmt->bind_param("sssssi", $username, $email, $firstname, $lastname, $gender, $c_id);
 
 if ($stmt->execute()) {
     header("Location: admin_customer_detail.php?c_id=$c_id&success=1");

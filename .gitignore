@@ -1,24 +1,84 @@
+# CafeConnect - Git Ignore Rules
+
+# Configuration files with sensitive data
+config/stripe_config.php
+config/config.php
+
+# Database backups and exports
+*.sql.backup
+database/backup/
+database/exports/
+
+# Log files
+*.log
+logs/
+error.log
+access.log
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+cache/
+
 # IDE and Editor files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.project
+.buildpath
 
-# OS files
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Config files with sensitive data
-config/conn_db.php
+# Upload directories (keep structure, ignore uploaded content)
+assets/img/uploads/*
+!assets/img/uploads/.gitkeep
 
-# Uploaded images (keep directory structure)
-assets/img/*
-!assets/img/.gitkeep
+# Vendor directories
+vendor/composer/
+node_modules/
 
-# Logs
-*.log
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
 
-# Temporary files
-*.tmp
-*.temp
+# Backup files
+*.bak
+*.backup
+*~
+
+# Session files
+sessions/
+tmp/
+
+# Development and testing files
+test/
+tests/
+phpunit.xml
+.phpunit.result.cache
+coverage/
+
+# Package manager files
+composer.lock
+package-lock.json
+
+# Build files
+build/
+dist/
+out/
+
+# Documentation build files
+docs/_build/
+site/

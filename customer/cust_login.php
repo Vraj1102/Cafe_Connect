@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="../assets/css/login.css" rel="stylesheet">
 
-    <title>Log in | Sai Cafe</title>
+    <title>Log in | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <header class="navbar navbar-light fixed-top bg-light shadow-sm mb-auto">
         <div class="container-fluid mx-4">
-            <a href="/Sai Cafe/index.php">
-                <img src="/Sai Cafe/assets/img/Leaf logo.jpeg" width="70" class="me-2" alt="Sai Cafe Logo">
+            <a href="/CafeConnect/index.php">
+                <img src="/CafeConnect/assets/img/landing_logo.png" width="70" class="me-2" alt="CafeConnect Logo">
             </a>
         </div>
     </header>
@@ -34,13 +34,13 @@
                 <label for="floatingPassword">Password</label>
             </div>
             <button class="w-100 btn btn-success mb-3" type="submit">Log In</button>
-            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="/Sai Cafe/shop/shop_login.php">
+            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="/CafeConnect/shop/shop_login.php">
                 <i class="bi bi-shop me-2"></i>Log in to your shop account
             </a>
-            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="/Sai Cafe/customer/cust_forgot_pwd.php">
+            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="/CafeConnect/customer/cust_forgot_pwd.php">
                 <i class="bi bi-key me-2"></i>Forgot your password?
             </a>
-            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="/Sai Cafe/customer/cust_regist.php">
+            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="/CafeConnect/customer/cust_regist.php">
                 <i class="bi bi-person-plus me-2"></i>Create your new account
             </a>
         </form>
@@ -49,11 +49,10 @@
     <footer class="text-center text-white">
   <!-- Copyright -->
   <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
+    <p class="text-white">© 2024 Copyright : CafeConnect Group</p>
     <p class="text-white">Developed by :</p>
     <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
+    </p>
   </div>
   <!-- Copyright -->
 </footer>

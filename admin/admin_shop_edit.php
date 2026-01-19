@@ -26,13 +26,23 @@
         <h2 class="border-bottom pb-2"><i class="bi bi-shop"></i> Edit Shop</h2>
 
         <?php
-        $s_id = $_GET["s_id"];
+        if (!isset($_GET["s_id"]) || !is_numeric($_GET["s_id"])){
+            echo '<div class="alert alert-warning">Missing or invalid shop id.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
+        $s_id = (int) $_GET["s_id"];
         $query = "SELECT * FROM shop WHERE s_id = ?";
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param("i", $s_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $shop = $result->fetch_array();
+        if (!$shop) {
+            echo '<div class="alert alert-warning">Shop not found.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
         ?>
 
         <form method="POST" action="admin_shop_update.php" class="mt-4">
@@ -97,8 +107,8 @@
                     <div class="mb-3">
                         <label class="form-label">Pre-order Status</label>
                         <select class="form-select" name="s_preorderstatus" required>
-                            <option value="1" <?= $shop['s_preorderStatus'] == 1 ? 'selected' : '' ?>>Available</option>
-                            <option value="0" <?= $shop['s_preorderStatus'] == 0 ? 'selected' : '' ?>>Not Available</option>
+                            <option value="1" <?= (isset($shop['s_preorderstatus']) && $shop['s_preorderstatus'] == 1) ? 'selected' : '' ?>>Available</option>
+                            <option value="0" <?= (isset($shop['s_preorderstatus']) && $shop['s_preorderstatus'] == 0) ? 'selected' : '' ?>>Not Available</option>
                         </select>
                     </div>
                 </div>

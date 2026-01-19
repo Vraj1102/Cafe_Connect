@@ -1,77 +1,106 @@
-/* CafeConnect Main Styles */
+/* CafeConnect Main CSS */
+:root {
+    --cc-coffee-brown: #8B4513;
+    --cc-espresso: #3C2415;
+    --cc-caramel: #D2691E;
+    --cc-cream: #F5F5DC;
+    --cc-latte: #F4E4C1;
+    --cc-fresh-green: #228B22;
+    --cc-gold: #FFD700;
+}
 
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: #fafafa;
 }
 
-.promo-banner-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
+.cc-text-coffee { color: var(--cc-coffee-brown) !important; }
+.cc-text-espresso { color: var(--cc-espresso) !important; }
+.cc-text-green { color: var(--cc-fresh-green) !important; }
 
-.rounded-25 {
+.cc-bg-cream { background-color: var(--cc-cream) !important; }
+.cc-bg-latte { background-color: var(--cc-latte) !important; }
+
+.cc-card {
+    background: white;
     border-radius: 15px;
-}
-
-.smaller-font {
-    font-size: 0.9rem;
-}
-
-.xsmall-font {
-    font-size: 0.8rem;
-}
-
-.form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-    transition: transform 0.3s ease;
-}
-
-.navbar-brand img {
-    height: 40px;
-}
-
-.hero-section {
-    min-height: 400px;
-}
-
-.feature-card {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
 }
 
-.trending-badge {
-    z-index: 10;
+.cc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
-/* Custom button styles */
-.btn-primary {
-    background-color: #667eea;
-    border-color: #667eea;
+.cc-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.btn-primary:hover {
-    background-color: #5a6fd8;
-    border-color: #5a6fd8;
+.btn-cc-primary {
+    background: var(--cc-coffee-brown);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
 }
 
-/* Footer styles */
-footer {
-    margin-top: auto;
+.btn-cc-primary:hover {
+    background: var(--cc-espresso);
+    color: white;
+    transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 2rem 0;
-    }
-    
-    .display-3 {
-        font-size: 2rem;
-    }
+.btn-cc-success {
+    background: var(--cc-fresh-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-cc-warning {
+    background: var(--cc-caramel);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cc-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.cc-badge-open {
+    background: var(--cc-fresh-green);
+    color: white;
+}
+
+.cc-badge-closed {
+    background: #dc3545;
+    color: white;
+}
+
+.cc-badge-preorder {
+    background: var(--cc-caramel);
+    color: white;
+}
+
+.cc-badge-trending {
+    background: var(--cc-gold);
+    color: var(--cc-espresso);
 }

@@ -28,7 +28,12 @@
         <h2 class="border-bottom pb-2"><i class="bi bi-shop"></i> Shop Details</h2>
 
         <?php
-        $s_id = $_GET["s_id"];
+        if (!isset($_GET["s_id"]) || !is_numeric($_GET["s_id"])) {
+            echo '<div class="alert alert-warning">Missing or invalid shop id.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
+        $s_id = (int) $_GET["s_id"];
         $query = "SELECT * FROM shop WHERE s_id = ?";
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param("i", $s_id);
@@ -69,7 +74,7 @@
                             
                             <dt class="col-sm-3">Pre-order:</dt>
                             <dd class="col-sm-9">
-                                <?php if($shop['s_preorderStatus'] == 1): ?>
+                                <?php if(isset($shop['s_preorderstatus']) && $shop['s_preorderstatus'] == 1): ?>
                                     <span class="badge bg-info">Available</span>
                                 <?php else: ?>
                                     <span class="badge bg-secondary">Not Available</span>
@@ -78,7 +83,7 @@
                         </dl>
                     </div>
                     <div class="col-md-4">
-                        <?php if($shop['s_pic']): ?>
+                        <?php if(!empty($shop) && !empty($shop['s_pic'])): ?>
                             <img src="/CafeConnect/assets/img/<?= $shop['s_pic'] ?>" class="img-fluid rounded" alt="Shop Image">
                         <?php else: ?>
                             <img src="/CafeConnect/assets/img/default.jpg" class="img-fluid rounded" alt="Default Image">

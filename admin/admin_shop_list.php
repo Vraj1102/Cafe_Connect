@@ -14,17 +14,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>Shop List | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <?php include('nav_header_admin.php')?>
 
-    <div class="container p-5" style="padding-top: 100px !important;">
-        <h2 class="border-bottom pb-2"><i class="bi bi-shop"></i> Shop Management</h2>
+    <div class="container p-5">
+        <h2 class="cc-text-coffee mb-4"><i class="bi bi-shop"></i> Shop Management</h2>
         
-        <div class="table-responsive mt-4">
-            <table class="table table-striped table-hover">
+        <div class="table-responsive cc-card">
+            <table class="table table-hover mb-0">
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
@@ -49,14 +53,16 @@
                         <td><?= $row['s_openhour'] ?> - <?= $row['s_closehour'] ?></td>
                         <td>
                             <?php if($row['s_status'] == 1): ?>
-                                <span class="badge bg-success">Active</span>
+                                <span class="cc-badge cc-badge-open">Active</span>
                             <?php else: ?>
-                                <span class="badge bg-danger">Inactive</span>
+                                <span class="cc-badge cc-badge-closed">Inactive</span>
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="admin_shop_detail.php?s_id=<?= $row['s_id'] ?>" class="btn btn-sm btn-primary">View</a>
-                            <a href="admin_shop_edit.php?s_id=<?= $row['s_id'] ?>" class="btn btn-sm btn-success">Edit</a>
+                            <div class="d-flex flex-column gap-1">
+                                <a href="admin_shop_detail.php?s_id=<?= $row['s_id'] ?>" class="btn-cc-primary btn-sm">View</a>
+                                <a href="admin_shop_edit.php?s_id=<?= $row['s_id'] ?>" class="btn-cc-success btn-sm">Edit</a>
+                            </div>
                         </td>
                     </tr>
                     <?php } ?>

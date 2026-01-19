@@ -35,7 +35,7 @@
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/menu.css" rel="stylesheet">
     <script type="text/javascript" src="../assets/js/input_number.js"></script>
-    <title>Food Item | Sai Cafe</title>
+    <title>Food Item | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -58,7 +58,7 @@
             <div class="col mb-3 mb-md-0">
                 <img 
                     <?php
-                        if(is_null($food_row["f_pic"])){echo "src='/Sai Cafe/assets/img/default.png'";}
+                        if(is_null($food_row["f_pic"])){echo "src='/CafeConnect/assets/img/default.jpg'";}
                         else{echo "src=\"img/{$food_row['f_pic']}\"";}
                     ?> 
                     class="img-fluid rounded-25 float-start" 
@@ -139,11 +139,8 @@
     <footer class="text-center text-white">
   <!-- Copyright -->
   <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
+    <p class="text-white">© 2024 Copyright : CafeConnect</p>
+    <p class="text-white">Developed by : Vraj Patel</p>
   </div>
   <!-- Copyright -->
 </footer>

@@ -4,22 +4,27 @@
 <head>
     <?php 
         session_start(); 
-        if($_SESSION["utype"]!="shopowner"){
+        // ensure required session values exist to avoid PHP notices/warnings
+        if(!isset($_SESSION["utype"]) || $_SESSION["utype"]!="shopowner" || !isset($_SESSION["sid"])){
             header("location: ../restricted.php");
             exit(1);
         }
-        include("../conn_db.php"); 
-        include('../head.php');
-        $s_id = $_SESSION["sid"];
+        include("../config/conn_db.php"); 
+        include('../includes/head.php');
+        $s_id = (int)$_SESSION["sid"];
     ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/main.css" rel="stylesheet">
-    <title>Customer Order List | Sai Cafe</title>
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
+    <title>Customer Order List | CafeConnect</title>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
     <?php include('nav_header_shop.php'); ?>
 
     <div class="container px-5 pt-4" id="shop-body">
@@ -109,8 +114,14 @@
                                         <div class="col">Name: 
                                             <?php
                                             $cust_query = "SELECT c_firstname,c_lastname,c_type FROM customer WHERE c_id = {$og_row['c_id']};";
-                                            $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
-                                            switch($cust_arr["c_type"]){
+                                            $cust_result = $mysqli->query($cust_query);
+                                            if($cust_result){
+                                                $cust_arr = $cust_result->fetch_array();
+                                            } else {
+                                                $cust_arr = array('c_firstname'=>'Unknown','c_lastname'=>'','c_type'=>'');
+                                            }
+                                            $cust_type = isset($cust_arr["c_type"]) ? $cust_arr["c_type"] : '';
+                                            switch($cust_type){
                                                 case "STD": $cust_type = "Student"; break;
                                                 case "INS": $cust_type = "Professor"; break;
                                                 case "TAS": $cust_type = "Teaching Assistant"; break;
@@ -197,8 +208,14 @@
                                         <div class="col">Name: 
                                             <?php
                                             $cust_query = "SELECT c_firstname,c_lastname,c_type FROM customer WHERE c_id = {$og_row['c_id']};";
-                                            $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
-                                            switch($cust_arr["c_type"]){
+                                            $cust_result = $mysqli->query($cust_query);
+                                            if($cust_result){
+                                                $cust_arr = $cust_result->fetch_array();
+                                            } else {
+                                                $cust_arr = array('c_firstname'=>'Unknown','c_lastname'=>'','c_type'=>'');
+                                            }
+                                            $cust_type = isset($cust_arr["c_type"]) ? $cust_arr["c_type"] : '';
+                                            switch($cust_type){
                                                 case "STD": $cust_type = "Student"; break;
                                                 case "INS": $cust_type = "Professor"; break;
                                                 case "TAS": $cust_type = "Teaching Assistant"; break;
@@ -285,8 +302,14 @@
                                         <div class="col">Name: 
                                             <?php
                                             $cust_query = "SELECT c_firstname,c_lastname,c_type FROM customer WHERE c_id = {$og_row['c_id']};";
-                                            $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
-                                            switch($cust_arr["c_type"]){
+                                            $cust_result = $mysqli->query($cust_query);
+                                            if($cust_result){
+                                                $cust_arr = $cust_result->fetch_array();
+                                            } else {
+                                                $cust_arr = array('c_firstname'=>'Unknown','c_lastname'=>'','c_type'=>'');
+                                            }
+                                            $cust_type = isset($cust_arr["c_type"]) ? $cust_arr["c_type"] : '';
+                                            switch($cust_type){
                                                 case "STD": $cust_type = "Student"; break;
                                                 case "INS": $cust_type = "Professor"; break;
                                                 case "TAS": $cust_type = "Teaching Assistant"; break;
@@ -373,8 +396,14 @@
                                         <div class="col">Name: 
                                             <?php
                                             $cust_query = "SELECT c_firstname,c_lastname,c_type FROM customer WHERE c_id = {$og_row['c_id']};";
-                                            $cust_arr = $mysqli -> query($cust_query) -> fetch_array();
-                                            switch($cust_arr["c_type"]){
+                                            $cust_result = $mysqli->query($cust_query);
+                                            if($cust_result){
+                                                $cust_arr = $cust_result->fetch_array();
+                                            } else {
+                                                $cust_arr = array('c_firstname'=>'Unknown','c_lastname'=>'','c_type'=>'');
+                                            }
+                                            $cust_type = isset($cust_arr["c_type"]) ? $cust_arr["c_type"] : '';
+                                            switch($cust_type){
                                                 case "STD": $cust_type = "Student"; break;
                                                 case "INS": $cust_type = "Professor"; break;
                                                 case "TAS": $cust_type = "Teaching Assistant"; break;
@@ -439,17 +468,7 @@
         </div>
     </div>
 
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj                
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+    <?php include('../includes/footer_shop.php'); ?>
 </body>
 
 </html>

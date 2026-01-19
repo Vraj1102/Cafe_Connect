@@ -1,8 +1,8 @@
 <!--    NAV HEADER FOR SHOP OWNER SIDE PAGE   -->
 <header class="navbar navbar-expand-md navbar-dark fixed-top shadow-lg mb-auto" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);">
     <div class="container-fluid mx-4">
-        <a href="shop_home.php" class="navbar-brand d-flex align-items-center">
-            <img src="/CafeConnect/assets/img/Main Logo 2.jpeg" width="50" class="me-3 rounded-circle" alt="CafeConnect">
+        <a href="shop_home.php" class="navbar-brand d-flex align-items-center text-decoration-none">
+            <img src="/CafeConnect/assets/img/landing_logo.png" width="50" class="me-3" alt="CafeConnect">
             <div>
                 <h5 class="mb-0 text-white fw-bold">Shop Portal</h5>
                 <small class="text-light fst-italic">Manage Your Cafe</small>
@@ -23,9 +23,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="shop_menu_list.php" class="nav-link px-3 text-white fw-semibold"><i class="bi bi-card-list"></i> Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a href="shop_profile.php" class="nav-link px-3 text-white fw-semibold"><i class="bi bi-person-gear"></i> Profile</a>
                 </li>
                 <li class="nav-item">
                     <a href="shop_report_select.php" class="nav-link px-3 text-white fw-semibold"><i class="bi bi-graph-up"></i> Reports</a>

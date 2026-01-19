@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/login.css" rel="stylesheet">
-    <title>Forgot Password | Sai Cafe</title>
+    <title>Forgot Password | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <header class="navbar navbar-light fixed-top bg-light shadow-sm mb-auto">
         <div class="container-fluid mx-4">
             <a href="index.php">
-                <img src="/Sai Cafe/assets/img/Leaf logo.jpeg" width="70" class="me-2" alt="Leaf Cafe">
+                <img src="/CafeConnect/assets/img/landing_logo.png" width="70" class="me-2" alt="CafeConnect Logo">
             </a>
         </div>
     </header>
@@ -41,11 +41,8 @@
     <footer class="text-center text-white">
   <!-- Copyright -->
   <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
+    <p class="text-white">© 2024 Copyright : CafeConnect</p>
+    <p class="text-white">Developed by : Vraj Patel</p>
   </div>
   <!-- Copyright -->
 </footer>

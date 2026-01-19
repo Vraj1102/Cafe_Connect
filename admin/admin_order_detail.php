@@ -26,8 +26,13 @@
         <h2 class="border-bottom pb-2"><i class="bi bi-receipt"></i> Order Details</h2>
 
         <?php
-        $orh_id = $_GET["orh_id"];
-        $query = "SELECT orh.*, c.c_firstname, c.c_lastname, s.s_name, p.p_amount, p.p_type 
+        if (!isset($_GET['orh_id']) || !is_numeric($_GET['orh_id'])) {
+            echo '<div class="alert alert-warning">Missing or invalid order id.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
+        $orh_id = (int) $_GET["orh_id"];
+        $query = "SELECT orh.*, c.c_firstname, c.c_lastname, s.s_name, p.p_amount, p.p_method 
                  FROM order_header orh 
                  INNER JOIN customer c ON orh.c_id = c.c_id 
                  INNER JOIN shop s ON orh.s_id = s.s_id 
@@ -38,6 +43,11 @@
         $stmt->execute();
         $result = $stmt->get_result();
         $order = $result->fetch_array();
+        if (!$order) {
+            echo '<div class="alert alert-warning">Order not found.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
         ?>
 
         <div class="card mt-4">
@@ -70,7 +80,7 @@
                     </dd>
                     
                     <dt class="col-sm-3">Payment:</dt>
-                    <dd class="col-sm-9"><?= $order['p_amount'] ?> Rs. (<?= $order['p_type'] ?>)</dd>
+                    <dd class="col-sm-9"><?= $order['p_amount'] ?> Rs. (<?= htmlspecialchars($order['p_method']) ?>)</dd>
                 </dl>
 
                 <h6 class="mt-4">Order Items:</h6>

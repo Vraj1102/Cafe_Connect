@@ -43,7 +43,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/login.css" rel="stylesheet">
-    <title>Update menu detail | Sai Cafe</title>
+    <title>Update menu detail | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -91,11 +91,8 @@
     <footer class="text-center text-white">
   <!-- Copyright -->
   <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
+    <p class="text-white">© 2024 Copyright : CafeConnect</p>
+    <p class="text-white">Developed by : Vraj Patel</p>
   </div>
   <!-- Copyright -->
 </footer>

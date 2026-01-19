@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <?php 
+<?php 
         session_start(); 
-        include("../conn_db.php"); 
+        include("../config/conn_db.php"); 
         if($_SESSION["utype"]!="shopowner"){
             header("location: ../restricted.php");
             exit(1);
@@ -46,20 +42,21 @@
             }
         }
 
-        include('../head.php');
+        include('../includes/head.php');
     ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/login.css" rel="stylesheet">
-    <title>Update shop password | Sai Cafe</title>
+    <title>Update shop password | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
     <?php include('nav_header_shop.php')?>
 
-    <div class="container form-signin mt-auto w-50">
+    <!-- FIXED: Removed mt-auto, added pt-5 mt-5 for proper spacing -->
+    <div class="container form-signin w-50 pt-5 mt-5">
         <a class="nav nav-item text-decoration-none text-muted" href="#" onclick="history.back();">
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
@@ -86,18 +83,7 @@
             <button class="w-100 btn btn-success my-3" name="rst_confirm" type="submit" onclick="return confirm('Do you want to update the shop password?');" >Update Shop Password</button>
         </form>
     </div>
-
-    <footer class="text-center text-white">
-  <!-- Copyright -->
-  <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
-  </div>
-  <!-- Copyright -->
-</footer>
+<?php include('../includes/footer_shop.php'); ?>
 </body>
 
 </html>

@@ -17,6 +17,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/menu.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>My Cart | CafeConnect</title>
 </head>
 
@@ -98,12 +102,8 @@
             <?php } 
                 }  ?>
 
-            <h2 class="py-3 display-6 border-bottom">
-                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cart"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg> My Cart
+            <h2 class="py-3 cc-text-coffee">
+                <i class="bi bi-cart" style="font-size: 2rem;"></i> My Cart
             </h2>
         </div>
 
@@ -302,7 +302,7 @@
                             </ul>
                         </div>
                     </div>
-                    <form method="POST" action="add_order.php">
+
                         <div class="col mb-1">
                             <div class="card px-2 px-md-4 pb-1 pb-md-2 border-0">
                                 <h5 class="card-title fw-light">Pick-Up Detail</h5>
@@ -370,20 +370,12 @@
                                 ?>
                             
                             <?php }else{ ?>
-                            <script type="text/javascript" src="https://cdn.omise.co/omise.js"
-                                data-key="pkey_test_5qtd0o2x3znnduisr3e"
-                                data-image="https://drive.google.com/file/d/1fen9-eomrWPnZhmcQ2u-sqHLRex4ir4U/view?usp=sharing"
-                                data-frame-label="CafeConnect"
-                                data-button-label="Proceed with payment"
-                                data-submit-label="Submit"
-                                data-locale="en"
-                                data-location="no"
-                                data-amount="<?php echo $order_cost*100;?>"
-                                data-currency="THB">
-                            </script>
+                            <a href="stripe_checkout.php" class="w-100 btn btn-primary">
+                                <i class="bi bi-credit-card me-2"></i>Proceed with Payment
+                            </a>
                             <?php } ?>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -407,9 +399,5 @@
     <?php include('../includes/footer_customer.php'); ?>
 </body>
 
-<!-- Apply class to omise payment button -->
-<script type="text/javascript">
-    var pay_btn = document.getElementsByClassName("omise-checkout-button");
-    pay_btn[0].classList.add("w-100","btn","btn-primary");
-</script>
+
 </html>

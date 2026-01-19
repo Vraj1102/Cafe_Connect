@@ -16,6 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/Main Logo 2.jpeg" rel="icon">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>Customer List | CafeConnect</title>
 </head>
 
@@ -131,7 +135,7 @@
                 }
             ?>
 
-            <h2 class="pt-3 display-6">Customer List</h2>
+            <h2 class="pt-3 cc-text-coffee"><i class="bi bi-people"></i> Customer List</h2>
             <form class="form-floating mb-3" method="GET" action="admin_customer_list.php">
                 <div class="row g-2">
                     <div class="col">
@@ -147,34 +151,23 @@
                             <?php if(isset($_GET["search"])){?>value="<?php echo $_GET["ln"];?>" <?php } ?>>
                     </div>
                     <div class="col">
-                        <select class="form-select" id="utype" name="ut">
+                        <select class="form-select" id="gender" name="ut">
                             <?php if(isset($_GET["search"])){?>
-                            <option selected value="">Customer Type</option>
-                            <option value="STD" <?php if($_GET["ut"]=="STD"){ echo "selected";}?>>Student</option>
-                            <option value="INS" <?php if($_GET["ut"]=="INS"){ echo "selected";}?>>Professor</option>
-                            <option value="TAS" <?php if($_GET["ut"]=="TAS"){ echo "selected";}?>>Teaching Assistant
-                            </option>
-                            <option value="STF" <?php if($_GET["ut"]=="STF"){ echo "selected";}?>>Faculty Staff</option>
-                            <option value="GUE" <?php if($_GET["ut"]=="GUE"){ echo "selected";}?>>Visitor</option>
-                            <option value="ADM" <?php if($_GET["ut"]=="ADM"){ echo "selected";}?>>Admin</option>
-                            <option value="OTH" <?php if($_GET["ut"]=="OTH"){ echo "selected";}?>>Other</option>
+                            <option selected value="">Gender</option>
+                            <option value="M" <?php if($_GET["ut"]=="M"){ echo "selected";}?>>Male</option>
+                            <option value="F" <?php if($_GET["ut"]=="F"){ echo "selected";}?>>Female</option>
                             <?php }else{ ?>
-                            <option selected value="">Customer Type</option>
-                            <option value="STD">Student</option>
-                            <option value="INS">Professor</option>
-                            <option value="TAS">Teaching Assistant</option>
-                            <option value="STF">Faculty Staff</option>
-                            <option value="GUE">Visitor</option>
-                            <option value="ADM">Admin</option>
-                            <option value="OTH">Other</option>
+                            <option selected value="">Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
                             <?php } ?>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" name="search" value="1" class="btn btn-success">Search</button>
-                        <button type="reset" class="btn btn-danger"
+                        <button type="submit" name="search" value="1" class="btn-cc-success btn-sm">Search</button>
+                        <button type="reset" class="btn-cc-secondary btn-sm"
                             onclick="javascript: window.location='admin_customer_list.php'">Clear</button>
-                        <a href="admin_customer_add.php" class="btn btn-primary">Add new customer</a>
+                        <a href="admin_customer_add.php" class="btn-cc-primary btn-sm">Add new customer</a>
                     </div>
                 </div>
             </form>
@@ -184,19 +177,39 @@
     <div class="container pt-2" id="cust-table">
 
         <?php
+            $search_numrow = 0;
+            $search_result = null;
+            
             if(!isset($_GET["search"])){
-                $search_query = "SELECT c_id,c_username,c_firstname,c_lastname,c_type,c_email FROM customer;";
+                $search_query = "SELECT c_id,c_username,c_firstname,c_lastname,c_gender,c_email FROM customer";
+                $stmt = $mysqli->prepare($search_query);
+                if (!$stmt) {
+                    echo '<div class="alert alert-danger">Database error: ' . htmlspecialchars($mysqli->error) . '</div>';
+                } else {
+                    $stmt->execute();
+                    $search_result = $stmt->get_result();
+                    $search_numrow = $search_result->num_rows;
+                }
             }else{
-                $search_un=$_GET["un"];
-                $search_fn=$_GET["fn"];
-                $search_ln=$_GET["ln"];
-                $search_ut=$_GET["ut"];
-                $search_query = "SELECT c_id,c_username,c_firstname,c_lastname,c_type,c_email FROM customer
-                WHERE c_username LIKE '%{$search_un}%' AND c_firstname LIKE '%{$search_fn}%' AND c_lastname LIKE '%{$search_ln}%' AND c_type LIKE '%{$search_ut}%';";
+                $search_un = '%' . $_GET["un"] . '%';
+                $search_fn = '%' . $_GET["fn"] . '%';
+                $search_ln = '%' . $_GET["ln"] . '%';
+                $search_gd = '%' . $_GET["ut"] . '%';
+                
+                $search_query = "SELECT c_id,c_username,c_firstname,c_lastname,c_gender,c_email FROM customer
+                    WHERE c_username LIKE ? AND c_firstname LIKE ? AND c_lastname LIKE ? AND c_gender LIKE ?";
+                $stmt = $mysqli->prepare($search_query);
+                if (!$stmt) {
+                    echo '<div class="alert alert-danger">Database error: ' . htmlspecialchars($mysqli->error) . '</div>';
+                } else {
+                    $stmt->bind_param("ssss", $search_un, $search_fn, $search_ln, $search_gd);
+                    $stmt->execute();
+                    $search_result = $stmt->get_result();
+                    $search_numrow = $search_result->num_rows;
+                }
             }
-            $search_result = $mysqli -> query($search_query);
-            $search_numrow = $search_result -> num_rows;
-            if($search_numrow == 0){
+            
+            if (!$search_result || $search_numrow == 0) {
         ?>
         <div class="row">
             <div class="col mt-2 ms-2 p-2 bg-danger text-white rounded text-start">
@@ -209,9 +222,9 @@
                 <a href="admin_customer_list.php" class="text-white">Clear Search Result</a>
             </div>
         </div>
-        <?php } else{ ?>
-        <div class="table-responsive">
-        <table class="table rounded-5 table-light table-striped table-hover align-middle caption-top mb-5">
+        <?php } else { ?>
+        <div class="table-responsive cc-card">
+        <table class="table table-hover align-middle caption-top mb-0">
             <caption><?php echo $search_numrow;?> customer(s) <?php if(isset($_GET["search"])){?><br /><a
                     href="admin_customer_list.php" class="text-decoration-none text-danger">Clear Search
                     Result</a><?php } ?></caption>
@@ -221,7 +234,7 @@
                     <th scope="col">Username</th>
                     <th scope="col">First name</th>
                     <th scope="col">Last name</th>
-                    <th scope="col">Type</th>
+                    <th scope="col">Gender</th>
                     <th scope="col">E-mail</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -234,25 +247,25 @@
                     <td><?php echo $row["c_firstname"];?></td>
                     <td><?php echo $row["c_lastname"];?></td>
                     <td><?php 
-                        switch($row["c_type"]){
-                            case "STD": echo "Student"; break;
-                            case "INS": echo "Professor"; break;
-                            case "TAS": echo "Teaching Assistant"; break;
-                            case "STF": echo "Faculty Staff"; break;
-                            case "GUE": echo "Visitor"; break;
-                            case "ADM": echo "Admin"; break;
-                            default: echo "Other";
+                        if($row["c_gender"] == "M") {
+                            echo "Male";
+                        } elseif($row["c_gender"] == "F") {
+                            echo "Female";
+                        } else {
+                            echo htmlspecialchars($row["c_gender"]);
                         }
                     ?>
                     </td>
                     <td><?php echo $row["c_email"];?></td>
                     <td>
-                        <a href="admin_customer_detail.php?c_id=<?php echo $row["c_id"]?>"
-                            class="btn btn-sm btn-primary">View</a>
-                        <a href="admin_customer_edit.php?c_id=<?php echo $row["c_id"]?>"
-                            class="btn btn-sm btn-outline-success">Edit</a>
-                        <a href="admin_customer_delete.php?c_id=<?php echo $row["c_id"]?>"
-                            class="btn btn-sm btn-outline-danger">Delete</a>
+                        <div class="d-flex flex-column gap-1">
+                            <a href="admin_customer_detail.php?c_id=<?php echo $row["c_id"]?>"
+                                class="btn-cc-primary btn-sm">View</a>
+                            <a href="admin_customer_edit.php?c_id=<?php echo $row["c_id"]?>"
+                                class="btn-cc-success btn-sm">Edit</a>
+                            <a href="admin_customer_delete.php?c_id=<?php echo $row["c_id"]?>"
+                                class="btn-cc-secondary btn-sm">Delete</a>
+                        </div>
                     </td>
                 </tr>
                 <?php } ?>
@@ -260,7 +273,9 @@
         </table>
         </div>
         <?php }
-            $search_result -> free_result();
+            if ($search_result) {
+                $search_result -> free_result();
+            }
         ?>
     </div>
 

@@ -7,7 +7,7 @@ class Middleware {
     // Require authentication
     public static function requireAuth() {
         if (!Auth::validateSession()) {
-            header("Location: /Sai Cafe/auth_login.php");
+            header("Location: /CafeConnect/auth_login.php");
             exit();
         }
     }
@@ -17,7 +17,7 @@ class Middleware {
         self::requireAuth();
         
         if (!Auth::hasRole($role)) {
-            header("Location: /Sai Cafe/includes/restricted.php");
+            header("Location: /CafeConnect/includes/restricted.php");
             exit();
         }
     }

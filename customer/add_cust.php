@@ -25,7 +25,7 @@ $firstname = trim($_POST["firstname"] ?? '');
 $lastname = trim($_POST["lastname"] ?? '');
 $gender = $_POST["gender"] ?? '';
 $email = trim($_POST["email"] ?? '');
-$type = 'STD'; // Default customer type
+$type = 'STD'; // Default customer type (not stored in current schema)
 
 if ($gender == "-" || empty($username) || empty($firstname) || empty($lastname) || empty($email)) {
     ?>
@@ -69,9 +69,9 @@ if ($result->num_rows >= 1) {
     exit();
 }
 
-// Insert new customer
-$stmt = $mysqli->prepare("INSERT INTO customer (c_username, c_pwd, c_firstname, c_lastname, c_email, c_gender, c_type) VALUES (?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssss", $username, $pwd, $firstname, $lastname, $email, $gender, $type);
+// Insert new customer (schema has no c_type column)
+$stmt = $mysqli->prepare("INSERT INTO customer (c_username, c_pwd, c_firstname, c_lastname, c_email, c_gender) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssss", $username, $pwd, $firstname, $lastname, $email, $gender);
 
 if ($stmt->execute()) {
     header("Location: cust_regist_success.php");

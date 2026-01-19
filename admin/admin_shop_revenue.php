@@ -187,7 +187,7 @@
     </div>
     <footer
         class="footer d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-auto bg-secondary text-light">
-        <span class="smaller-font">&copy; 2024 Sai Group<br /><span class="xsmall-font">Vraj Raj Saikiran</span></span>
+        <span class="smaller-font">&copy; 2024 CafeConnect<br /><span class="xsmall-font">Vraj Patel</span></span>
         <ul class="nav justify-content-end list-unstyled d-flex">
             <li class="ms-3"><a class="text-light" target="_blank" href="https://github.com/waterthatfrozen/EATERIO"><i
                         class="bi bi-github"></i></a></li>

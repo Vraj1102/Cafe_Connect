@@ -15,50 +15,37 @@ $userRole = $_SESSION['utype'] ?? null;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/cafeconnect-design-system.css" rel="stylesheet">
     <style>
-        html { height: 100%; }
         body { padding-top: 76px; }
         .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(139,69,19,0.6)), url('/CafeConnect/assets/img/landing_homepage.png') center/cover;
+            background: linear-gradient(rgba(44,24,16,0.5), rgba(111,78,55,0.7)), url('assets/img/landing_homepage.png') center/cover;
+            background-attachment: fixed;
             position: relative;
             color: white;
-            padding: 6rem 0;
-            min-height: 90vh;
+            padding: 8rem 0;
+            min-height: 95vh;
             display: flex;
             align-items: center;
         }
-        .hero-logo {
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-            animation: fadeInUp 1s ease-out;
+        .hero-logo { 
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+            animation: fadeInUp 1.2s ease-out;
         }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .hero-content { animation: fadeInUp 1s ease-out 0.3s both; }
+        .hero-buttons { animation: fadeInUp 1s ease-out 0.6s both; }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
-        .hero-section .container {
-            position: relative;
-            z-index: 1;
-        }
-        .feature-card {
-            transition: transform 0.3s;
-            height: 100%;
-        }
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        .trending-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-        .rounded-25 {
-            border-radius: 15px;
+        .shiny-text {
+            background: linear-gradient(90deg, #FFD700 0%, #FFF 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.8)) drop-shadow(0 0 40px rgba(255,165,0,0.6));
         }
     </style>
     <title>Welcome To CafeConnect!!!</title>
@@ -70,161 +57,167 @@ $userRole = $_SESSION['utype'] ?? null;
 
     <!-- Hero Section -->
     <div class="hero-section text-center">
-        <div class="container" style="margin-top: -80px;">
-            <img src="/CafeConnect/assets/img/landing_logo.png" alt="CafeConnect Logo" class="hero-logo mb-4" style="max-height: 200px;">
-            <h1 class="display-2 fw-bold mb-3 text-shadow">Welcome to CafeConnect</h1>
-            <p class="display-6 mb-3 text-warning fw-bold fst-italic">"Brewing Connections"</p>
-            <p class="lead mb-2 fs-4">Discover exceptional coffee experiences and connect with your favorite local cafes</p>
-            <?php if ($isAuthenticated): ?>
-                <span class="badge bg-success fs-6">Logged in as <?= ucfirst($userRole ?? 'User') ?></span>
-            <?php else: ?>
-                <a href="/CafeConnect/auth_login.php" class="btn btn-light btn-lg me-2">
-                    <i class="bi bi-box-arrow-in-right"></i> Login
-                </a>
-                <a href="/CafeConnect/customer/cust_regist.php" class="btn btn-outline-light btn-lg">
-                    <i class="bi bi-person-plus"></i> Sign Up
-                </a>
-            <?php endif; ?>
+        <div class="container">
+            <img src="assets/img/landing_logo.png" alt="CafeConnect Logo" class="hero-logo mb-4" style="max-height: 180px;">
+            <div class="hero-content">
+                <h1 class="display-1 fw-bold mb-3" style="color: #F4E4C1; text-shadow: 2px 4px 8px rgba(0,0,0,0.5);">Welcome to CafeConnect</h1>
+                <p class="display-6 mb-4 shiny-text">Brewing Connections</p>
+                <p class="lead mb-4 fs-4" style="text-shadow: 1px 2px 4px rgba(0,0,0,0.4);">Discover exceptional coffee experiences and connect with your favorite local cafes</p>
+            </div>
         </div>
     </div>
 
     <!-- About Section -->
-    <div class="container py-5">
-        <div class="row align-items-center mb-5">
-            <div class="col-md-6">
-                <h2 class="display-5 mb-3">About CafeConnect</h2>
-                <p class="lead">Connecting you with the finest cafes and restaurants in your area.</p>
-                <p>At CafeConnect, we believe in quality, convenience, and excellent service. Our platform features a wide variety of cafes and restaurants, offering everything from fresh coffee to tasty meals, all available for easy online ordering.</p>
+    <div class="container py-5 my-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 cc-animate-slide-in">
+                <h2 class="display-5 mb-4 cc-text-coffee">About CafeConnect</h2>
+                <p class="lead cc-text-espresso">Connecting you with the finest cafes and restaurants in your area.</p>
+                <p class="mb-4">At CafeConnect, we believe in quality, convenience, and excellent service. Our platform features a wide variety of cafes and restaurants, offering everything from fresh coffee to tasty meals, all available for easy online ordering.</p>
                 <ul class="list-unstyled">
-                    <li><i class="bi bi-check-circle-fill text-success"></i> Fresh ingredients daily</li>
-                    <li><i class="bi bi-check-circle-fill text-success"></i> Quick online ordering</li>
-                    <li><i class="bi bi-check-circle-fill text-success"></i> Pre-order available</li>
-                    <li><i class="bi bi-check-circle-fill text-success"></i> Multiple shop locations</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill cc-text-green me-2"></i> Fresh ingredients daily</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill cc-text-green me-2"></i> Quick online ordering</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill cc-text-green me-2"></i> Pre-order available</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill cc-text-green me-2"></i> Multiple shop locations</li>
                 </ul>
             </div>
-            <div class="col-md-6">
-                <img src="/CafeConnect/assets/img/Coffee Shop banner.jpg" class="img-fluid rounded shadow" alt="Cafe">
+            <div class="col-md-6 cc-animate-fade-in">
+                <img src="assets/img/Coffee Shop banner.jpg" class="img-fluid cc-rounded-lg cc-shadow-lg" alt="Cafe">
             </div>
         </div>
     </div>
 
-    <!-- Trending Items Section -->
-    <div class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-4"><i class="bi bi-fire text-danger"></i> Trending Items</h2>
-            <div class="row row-cols-1 row-cols-md-4 g-4">
+    <!-- Trending Items Section (carousel style) -->
+    <div class="cc-bg-latte py-5">
+        <div class="container py-4">
+            <div class="d-flex align-items-center mb-3">
+                <h2 class="me-auto cc-text-coffee"><i class="bi bi-fire" style="color: var(--cc-caramel);"></i> Trending Now</h2>
+                <div>
+                    <button id="trendPrev" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-chevron-left"></i></button>
+                    <button id="trendNext" class="btn btn-sm btn-outline-secondary"><i class="bi bi-chevron-right"></i></button>
+                </div>
+            </div>
+            <p class="text-center text-muted mb-4">Most loved items by our community</p>
+
+            <div id="trendingContainer" style="display:flex; gap:1rem; overflow-x:auto; scroll-behavior:smooth; padding-bottom:8px;">
                 <?php
-                // Get top 4 trending items (most ordered)
+                // Use f_todayavail column (schema uses f_todayavail) instead of non-existent f_status
                 $trending_query = "SELECT f.f_id, f.f_name, f.f_price, f.f_pic, s.s_name, COUNT(ord.f_id) as order_count
-                    FROM food f 
+                    FROM food f
                     INNER JOIN shop s ON f.s_id = s.s_id
                     LEFT JOIN order_detail ord ON f.f_id = ord.f_id
-                    WHERE f.f_todayavail = 1 OR f.f_preorderavail = 1
+                    WHERE f.f_todayavail = 1
                     GROUP BY f.f_id
                     ORDER BY order_count DESC
-                    LIMIT 4";
+                    LIMIT 5";
                 $trending_result = $mysqli->query($trending_query);
                 if($trending_result && $trending_result->num_rows > 0){
-                    while($item = $trending_result->fetch_array()){
+                    while($item = $trending_result->fetch_assoc()){
                 ?>
-                <div class="col">
-                    <div class="card feature-card border-0 shadow position-relative">
-                        <span class="trending-badge"><i class="bi bi-fire"></i> Trending</span>
-                        <img src="<?= is_null($item['f_pic']) ? '/CafeConnect/assets/img/default.jpg' : '/CafeConnect/assets/img/'.$item['f_pic'] ?>" 
-                             class="card-img-top" style="height: 150px; object-fit: cover;" alt="<?= $item['f_name'] ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $item['f_name'] ?></h5>
-                            <p class="text-muted small">From: <?= $item['s_name'] ?></p>
-                            <p class="card-text fw-bold text-primary"><?= $item['f_price'] ?> Rs.</p>
+                <div class="cc-card" style="min-width:220px; flex:0 0 auto; max-width:260px;">
+                    <div style="position:relative;">
+                        <span class="cc-badge cc-badge-trending" style="position: absolute; top: 12px; right: 12px; z-index: 10;"><i class="bi bi-fire"></i> Hot</span>
+                        <img src="<?= empty($item['f_pic']) ? 'assets/img/default.jpg' : 'assets/img/'.$item['f_pic'] ?>" class="cc-card-image" alt="<?= htmlspecialchars($item['f_name']) ?>" style="height:140px; object-fit:cover;">
+                    </div>
+                    <div class="p-3">
+                        <h6 class="cc-text-espresso mb-1" style="min-height:2.4rem"><?= htmlspecialchars($item['f_name']) ?></h6>
+                        <p class="text-muted small mb-2"><i class="bi bi-shop"></i> <?= htmlspecialchars($item['s_name']) ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="fw-bold cc-text-coffee"><?= number_format($item['f_price'],2) ?> Rs.</div>
+                            <a href="customer/food_item.php?f_id=<?= $item['f_id'] ?>" class="btn btn-sm btn-cc-primary">Order</a>
                         </div>
                     </div>
                 </div>
-                <?php }} ?>
+                <?php }
+                } else { ?>
+                <div class="text-muted">No trending items yet.</div>
+                <?php } ?>
             </div>
+            <script>
+                (function(){
+                    const cont = document.getElementById('trendingContainer');
+                    document.getElementById('trendPrev').addEventListener('click', ()=> cont.scrollBy({left:-260, behavior:'smooth'}));
+                    document.getElementById('trendNext').addEventListener('click', ()=> cont.scrollBy({left:260, behavior:'smooth'}));
+                })();
+            </script>
         </div>
     </div>
 
     <!-- Features Section -->
-    <div class="container py-5">
-        <h2 class="text-center mb-5">Why Choose CafeConnect?</h2>
+    <div class="container py-5 my-5">
+        <h2 class="text-center mb-2 cc-text-coffee">Why Choose CafeConnect?</h2>
+        <p class="text-center text-muted mb-5">Experience the difference with our premium service</p>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
-                <div class="card feature-card text-center border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <i class="bi bi-clock-history text-primary" style="font-size: 3rem;"></i>
-                        <h4 class="mt-3">Quick Service</h4>
-                        <p class="text-muted">Fast preparation and pickup times for your convenience</p>
-                    </div>
+                <div class="cc-card text-center cc-spacing-lg">
+                    <i class="bi bi-clock-history" style="font-size: 3.5rem; color: var(--cc-coffee-brown);"></i>
+                    <h4 class="mt-4 mb-3 cc-text-espresso">Quick Service</h4>
+                    <p class="text-muted">Fast preparation and pickup times for your convenience</p>
                 </div>
             </div>
             <div class="col">
-                <div class="card feature-card text-center border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <i class="bi bi-star-fill text-warning" style="font-size: 3rem;"></i>
-                        <h4 class="mt-3">Quality Food</h4>
-                        <p class="text-muted">Fresh ingredients and authentic recipes every day</p>
-                    </div>
+                <div class="cc-card text-center cc-spacing-lg">
+                    <i class="bi bi-star-fill" style="font-size: 3.5rem; color: var(--cc-gold);"></i>
+                    <h4 class="mt-4 mb-3 cc-text-espresso">Quality Food</h4>
+                    <p class="text-muted">Fresh ingredients and authentic recipes every day</p>
                 </div>
             </div>
             <div class="col">
-                <div class="card feature-card text-center border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <i class="bi bi-phone text-success" style="font-size: 3rem;"></i>
-                        <h4 class="mt-3">Easy Ordering</h4>
-                        <p class="text-muted">Simple online ordering system with pre-order options</p>
-                    </div>
+                <div class="cc-card text-center cc-spacing-lg">
+                    <i class="bi bi-phone" style="font-size: 3.5rem; color: var(--cc-fresh-green);"></i>
+                    <h4 class="mt-4 mb-3 cc-text-espresso">Easy Ordering</h4>
+                    <p class="text-muted">Simple online ordering system with pre-order options</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Available Shops Section -->
-    <div class="container p-5" id="recommended-shop">
-        <h2 class="text-center mb-4">
-            <i class="bi bi-shop"></i> Our Shops
-        </h2>
+    <div class="cc-bg-cream py-5">
+        <div class="container py-4">
+            <h2 class="text-center mb-2 cc-text-coffee"><i class="bi bi-shop"></i> Browse Our Cafes</h2>
+            <p class="text-center text-muted mb-5">Find your perfect coffee spot</p>
 
-        <!-- GRID SHOP SELECTION -->
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
             <?php
             $query = "SELECT s_id,s_name,s_openhour,s_closehour,s_status,s_preorderstatus,s_pic FROM shop
-            WHERE (s_preorderstatus = 1) OR (s_preorderstatus = 0 AND (CURTIME() BETWEEN s_openhour AND s_closehour));";
-            $result = $mysqli -> query($query);
-            if($result -> num_rows > 0){
-            while($row = $result -> fetch_array()){
+            WHERE (s_preorderstatus = 1) OR (s_preorderstatus = 0 AND (CURTIME() BETWEEN s_openhour AND s_closehour))";
+            $result = $mysqli->query($query);
+            if($result && $result->num_rows > 0){
+            while($row = $result->fetch_array()){
         ?>
-            <!-- GRID EACH SHOP -->
             <div class="col">
-                <a href="<?php echo "/CafeConnect/customer/shop_menu.php?s_id=".$row["s_id"]?>" class="text-decoration-none text-dark">
-                    <div class="card rounded-25">
+                <a href="<?php echo "customer/shop_menu.php?s_id=".$row["s_id"]?>" class="text-decoration-none">
+                    <div class="cc-card">
                         <img <?php
-                            if(is_null($row["s_pic"])){echo "src='/CafeConnect/assets/img/default.jpg'";}
-                            else{echo "src=\"/CafeConnect/assets/img/{$row['s_pic']}\"";}
-                        ?> style="width:100%; height:175px; object-fit:cover;"
-                            class="card-img-top rounded-25 img-fluid" alt="<?php echo $row["s_name"]?>">
-                        <div class="card-body">
-                            <h4 name="shop-name" class="card-title"><?php echo $row["s_name"]?></h4>
-                            <p class="card-text text-muted">
+                            if(is_null($row["s_pic"])){echo "src='assets/img/default.jpg'";}
+                            else{echo "src=\"assets/img/{$row['s_pic']}\"";}
+                        ?> class="cc-card-image" alt="<?php echo htmlspecialchars($row["s_name"])?>">
+                        <div class="p-4">
+                            <h4 class="cc-text-espresso mb-3"><?php echo htmlspecialchars($row["s_name"])?></h4>
+                            <p class="text-muted mb-3">
                                 <i class="bi bi-clock"></i> 
                                 <?php echo date('H:i', strtotime($row["s_openhour"])) . ' - ' . date('H:i', strtotime($row["s_closehour"])); ?>
                             </p>
-                            <p class="card-text">
+                            <div class="mb-3">
                                 <?php if($row["s_status"] == 1): ?>
-                                    <span class="badge bg-success">Open Now</span>
+                                    <span class="cc-badge cc-badge-open">Open Now</span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger">Closed</span>
+                                    <span class="cc-badge cc-badge-closed">Closed</span>
                                 <?php endif; ?>
                                 
                                 <?php if($row["s_preorderstatus"] == 1): ?>
-                                    <span class="badge bg-info">Pre-order Available</span>
+                                    <span class="cc-badge cc-badge-preorder ms-2">Pre-order</span>
                                 <?php endif; ?>
-                            </p>
+                            </div>
+                            <button class="btn-cc-primary btn-sm w-100"><i class="bi bi-arrow-right"></i> View Menu</button>
                         </div>
                     </div>
                 </a>
             </div>
             <?php }} ?>
+            </div>
         </div>
     </div>
 
@@ -234,7 +227,7 @@ $userRole = $_SESSION['utype'] ?? null;
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="/CafeConnect/assets/img/Main Logo 2.jpeg" width="50" class="me-3 rounded-circle" alt="CafeConnect">
+                        <img src="assets/img/landing_logo.png" width="50" class="me-3" alt="CafeConnect">
                         <div>
                             <h4 class="mb-0 text-white fw-bold">CafeConnect</h4>
                             <small class="text-light fst-italic">"Brewing Connections"</small>
@@ -252,10 +245,9 @@ $userRole = $_SESSION['utype'] ?? null;
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-white mb-3">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/CafeConnect/index.php" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> Home</a></li>
-                        <li class="mb-2"><a href="/CafeConnect/customer/shop_list.php" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> Our Cafes</a></li>
-                        <li class="mb-2"><a href="#" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> About Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> Contact</a></li>
+                        <li class="mb-2"><a href="index.php" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> Home</a></li>
+                        <li class="mb-2"><a href="customer/shop_list.php" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> Our Cafes</a></li>
+                        <li class="mb-2"><a href="about.php" class="text-light text-decoration-none"><i class="bi bi-chevron-right"></i> About Us</a></li>
                     </ul>
                 </div>
                 
@@ -289,7 +281,7 @@ $userRole = $_SESSION['utype'] ?? null;
                 <div class="col-md-6 text-md-end">
                     <a href="#" class="text-light text-decoration-none me-3">Privacy Policy</a>
                     <a href="#" class="text-light text-decoration-none me-3">Terms of Service</a>
-                    <a href="#" class="text-light text-decoration-none">Support</a>
+                    <a href="about.php" class="text-light text-decoration-none">About Us</a>
                 </div>
             </div>
         </div>

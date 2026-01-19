@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
     <title>Edit Customer | CafeConnect</title>
 </head>
 
@@ -25,16 +26,26 @@
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
         
-        <h2 class="border-bottom pb-2"><i class="bi bi-person-gear"></i> Edit Customer</h2>
+        <h2 class="cc-text-coffee mb-4"><i class="bi bi-person-gear"></i> Edit Customer</h2>
 
         <?php
-        $cid = $_GET["c_id"];
-        $query = "SELECT * FROM customer WHERE c_id = ?";
+        if (!isset($_GET['c_id']) || !is_numeric($_GET['c_id'])) {
+            echo '<div class="alert alert-warning">Missing or invalid customer id.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
+        $cid = (int) $_GET['c_id'];
+        $query = "SELECT c_id,c_username,c_firstname,c_lastname,c_email,c_gender FROM customer WHERE c_id = ?";
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param("i", $cid);
         $stmt->execute();
         $result = $stmt->get_result();
         $customer = $result->fetch_array();
+        if (!$customer) {
+            echo '<div class="alert alert-warning">Customer not found.</div>';
+            include('../includes/footer_admin.php');
+            exit();
+        }
         ?>
 
         <form method="POST" action="admin_customer_update.php" class="mt-4">
@@ -81,24 +92,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="form-label">Customer Type</label>
-                        <select class="form-select" name="type" required>
-                            <option value="STD" <?= $customer['c_type'] == 'STD' ? 'selected' : '' ?>>Student</option>
-                            <option value="INS" <?= $customer['c_type'] == 'INS' ? 'selected' : '' ?>>Instructor</option>
-                            <option value="STF" <?= $customer['c_type'] == 'STF' ? 'selected' : '' ?>>Staff</option>
-                            <option value="GUE" <?= $customer['c_type'] == 'GUE' ? 'selected' : '' ?>>Guest</option>
-                            <option value="ADM" <?= $customer['c_type'] == 'ADM' ? 'selected' : '' ?>>Admin</option>
-                            <option value="OTH" <?= $customer['c_type'] == 'OTH' ? 'selected' : '' ?>>Others</option>
-                        </select>
-                    </div>
-                </div>
+
             </div>
 
             <div class="mt-4">
-                <button type="submit" class="btn btn-primary">Update Customer</button>
-                <a href="admin_customer_detail.php?c_id=<?= $cid ?>" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn-cc-primary">Update Customer</button>
+                <a href="admin_customer_detail.php?c_id=<?= $cid ?>" class="btn-cc-secondary">Cancel</a>
             </div>
         </form>
     </div>

@@ -14,8 +14,8 @@
 <body class="d-flex flex-column">
     <header class="navbar navbar-light fixed-top bg-light shadow-sm mb-auto" style="height: 60px;">
         <div class="container-fluid mx-4">
-            <a href="/CafeConnect/index.php">
-            <img src="/CafeConnect/assets/img/landing_logo.png" width="50" class="me-2" alt="CafeConnect Logo">
+            <a href="../index.php">
+            <img src="../assets/img/landing_logo.png" width="50" class="me-2" alt="CafeConnect Logo">
             </a>
         </div>
     </header>
@@ -24,7 +24,7 @@
         <a class="nav nav-item text-decoration-none text-muted" href="#" onclick="history.back();">
             <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
-        <form method="POST" action="/CafeConnect/customer/add_cust.php" class="form-floating">
+        <form method="POST" action="add_cust.php" class="form-floating">
             <h2 class="mt-4 mb-3 fw-normal text-bold"><i class="bi bi-person-plus me-2"></i>Register here...</h2>
             <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="username" placeholder="Username" name="username"

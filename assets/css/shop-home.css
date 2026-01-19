@@ -1,0 +1,16 @@
+/* Dashboard styles for shop home */
+.hero {
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: linear-gradient(90deg, rgba(255,245,235,1) 0%, rgba(255,238,214,1) 100%);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.quick-card {
+  border-radius: 10px;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.quick-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+.stat { font-size: 1.35rem; font-weight:700; }
+.stat-label { color: #6c757d; font-size: .9rem; }
+.actions .btn { border-radius: 999px; }
+@media (max-width:767px){ .hero { text-align:center } .actions { justify-content:center } }

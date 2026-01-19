@@ -1,191 +1,146 @@
-<?php
-session_start();
-require_once '../config/conn_db.php';
-
-// Check if user is logged in
-if (!isset($_SESSION['cid'])) {
-    header("Location: /CafeConnect/auth_login.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="h-100">
 <head>
-    <?php include('../includes/head.php');?>
+    <?php 
+        session_start(); 
+        include("../config/conn_db.php"); 
+        include('../includes/head.php');
+        if(!isset($_SESSION["cid"])){
+            header("location: ../auth_login.php");
+            exit(1);
+        }
+    ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
-    <style>
-        body { padding-top: 85px; }
-        .welcome-section {
-            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
-            color: white;
-            padding: 3rem 0;
-        }
-        .feature-card {
-            transition: transform 0.3s;
-            height: 100%;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        .trending-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-        .rounded-25 {
-            border-radius: 15px;
-        }
-    </style>
-    <title>CafeConnect - Your Dashboard</title>
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <link href="../assets/css/customer-home.css" rel="stylesheet">
+    <style>body { padding-top: 85px; }</style>
+    <title>Customer Dashboard | CafeConnect</title>
 </head>
 
-<body class="d-flex flex-column h-100">
-
+<body class="d-flex flex-column min-vh-100">
     <?php include('../includes/nav_header.php')?>
 
-    <!-- Welcome Section -->
-    <div class="welcome-section text-center">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Welcome back, <?= htmlspecialchars($_SESSION['firstname']) ?>!</h1>
-            <p class="lead mb-4">Ready to discover amazing food from your favorite cafes?</p>
-        </div>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="container py-4">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card text-center border-0 shadow-sm">
-                    <div class="card-body">
-                        <i class="bi bi-shop text-primary" style="font-size: 2rem;"></i>
-                        <h5 class="mt-2">Available Cafes</h5>
-                        <h3 class="text-primary">
-                            <?php
-                            $shop_count = $mysqli->query("SELECT COUNT(*) as count FROM shop WHERE s_status = 1")->fetch_array();
-                            echo $shop_count['count'];
-                            ?>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center border-0 shadow-sm">
-                    <div class="card-body">
-                        <i class="bi bi-cup-hot text-warning" style="font-size: 2rem;"></i>
-                        <h5 class="mt-2">Menu Items</h5>
-                        <h3 class="text-warning">
-                            <?php
-                            $food_count = $mysqli->query("SELECT COUNT(*) as count FROM food WHERE f_todayavail = 1 OR f_preorderavail = 1")->fetch_array();
-                            echo $food_count['count'];
-                            ?>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-center border-0 shadow-sm">
-                    <div class="card-body">
-                        <i class="bi bi-clock-history text-success" style="font-size: 2rem;"></i>
-                        <h5 class="mt-2">Your Orders</h5>
-                        <h3 class="text-success">
-                            <?php
-                            $order_count = $mysqli->query("SELECT COUNT(*) as count FROM order_header WHERE c_id = {$_SESSION['cid']}")->fetch_array();
-                            echo $order_count['count'];
-                            ?>
-                        </h3>
-                    </div>
+    <div class="container px-0 flex-grow-1">
+        <!-- Hero -->
+        <div class="hero-section text-white text-center" style="background-image: url('/CafeConnect/assets/img/landing_homepage.png');">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-2">Welcome back, <?= htmlspecialchars($_SESSION['firstname']) ?>!</h1>
+                <p class="lead mb-3">Discover trending favorites and quick picks from local cafes — order ahead and skip the line.</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="shop_list.php" class="btn btn-lg btn-cc-primary">Order Now</a>
+                    <a href="cust_order_history.php" class="btn btn-lg btn-outline-light">My Orders</a>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Trending Items Section -->
-    <div class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-4"><i class="bi bi-fire text-danger"></i> Trending Right Now</h2>
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-                <?php
-                $trending_query = "SELECT f.f_id, f.s_id, f.f_name, f.f_price, f.f_pic, s.s_name, COUNT(ord.f_id) as order_count
-                    FROM food f 
-                    INNER JOIN shop s ON f.s_id = s.s_id
-                    LEFT JOIN order_detail ord ON f.f_id = ord.f_id
-                    WHERE f.f_todayavail = 1 OR f.f_preorderavail = 1
-                    GROUP BY f.f_id
-                    ORDER BY order_count DESC
-                    LIMIT 4";
-                $trending_result = $mysqli->query($trending_query);
-                if($trending_result && $trending_result->num_rows > 0){
-                    while($item = $trending_result->fetch_array()){
-                ?>
-                <div class="col">
-                    <div class="card feature-card border-0 shadow position-relative">
-                        <span class="trending-badge"><i class="bi bi-fire"></i> Hot</span>
-                        <img src="<?= is_null($item['f_pic']) ? '/CafeConnect/assets/img/default.jpg' : '/CafeConnect/assets/img/'.$item['f_pic'] ?>" 
-                             class="card-img-top" style="height: 150px; object-fit: cover;" alt="<?= $item['f_name'] ?>">
-                        <div class="card-body">
-                            <h6 class="card-title"><?= htmlspecialchars($item['f_name']) ?></h6>
-                            <p class="text-muted small mb-1">From: <?= htmlspecialchars($item['s_name']) ?></p>
-                            <p class="card-text fw-bold text-primary mb-2"><?= $item['f_price'] ?> Rs.</p>
-                            <a href="/CafeConnect/customer/shop_menu.php?s_id=<?= $item['s_id'] ?>" class="btn btn-sm btn-primary w-100">Order Now</a>
-                        </div>
-                    </div>
+        <div class="container p-4">
+        <h2 class="cc-text-coffee mb-4 mt-4"><i class="bi bi-house-door"></i> Quick Actions</h2>
+        
+        <!-- Quick Actions -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="cc-card text-center">
+                    <i class="bi bi-shop" style="font-size: 3rem; color: var(--cc-coffee-brown);"></i>
+                    <h4 class="mt-3 mb-3 cc-text-espresso">Browse Cafes</h4>
+                    <p class="text-muted mb-3">Discover amazing cafes and restaurants</p>
+                    <a href="shop_list.php" class="btn-cc-primary">View All Cafes</a>
                 </div>
-                <?php }} ?>
+            </div>
+            <div class="col-md-4">
+                <div class="cc-card text-center">
+                    <i class="bi bi-cart" style="font-size: 3rem; color: var(--cc-fresh-green);"></i>
+                    <h4 class="mt-3 mb-3 cc-text-espresso">My Cart</h4>
+                    <p class="text-muted mb-3">Review items in your cart</p>
+                    <a href="cust_cart.php" class="btn-cc-success">View Cart</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cc-card text-center">
+                    <i class="bi bi-clock-history" style="font-size: 3rem; color: var(--cc-caramel);"></i>
+                    <h4 class="mt-3 mb-3 cc-text-espresso">Order History</h4>
+                    <p class="text-muted mb-3">Track your past orders</p>
+                    <a href="cust_order_history.php" class="btn-cc-warning">View Orders</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Available Shops Section -->
-    <div class="container py-5">
-        <h2 class="text-center mb-4">
-            <i class="bi bi-shop"></i> Browse Our Cafes
-        </h2>
+        <!-- Trending Now -->
+        <h3 class="cc-text-coffee mb-3"><i class="bi bi-fire"></i> Trending Now</h3>
+        <div id="custTrending" style="display:flex; gap:1rem; overflow-x:auto; padding-bottom:8px;">
+            <?php
+            $trending_query = "SELECT f.f_id, f.f_name, f.f_price, f.f_pic, s.s_name, COUNT(ord.f_id) as order_count
+                FROM food f
+                INNER JOIN shop s ON f.s_id = s.s_id
+                LEFT JOIN order_detail ord ON f.f_id = ord.f_id
+                WHERE f.f_todayavail = 1
+                GROUP BY f.f_id
+                ORDER BY order_count DESC
+                LIMIT 5";
+            $trending_result = $mysqli->query($trending_query);
+            if($trending_result && $trending_result->num_rows > 0){
+                while($item = $trending_result->fetch_assoc()){
+            ?>
+            <div class="cc-card" style="min-width:220px; flex:0 0 auto; max-width:260px;">
+                <div style="position:relative;">
+                    <span class="cc-badge cc-badge-trending" style="position: absolute; top: 12px; right: 12px; z-index: 10;"><i class="bi bi-fire"></i> Hot</span>
+                    <img src="<?= empty($item['f_pic']) ? '../assets/img/default.jpg' : '../assets/img/'.$item['f_pic'] ?>" class="cc-card-image" alt="<?= htmlspecialchars($item['f_name']) ?>" style="height:140px; object-fit:cover;">
+                </div>
+                <div class="p-3">
+                    <h6 class="cc-text-espresso mb-1" style="min-height:2.4rem"><?= htmlspecialchars($item['f_name']) ?></h6>
+                    <p class="text-muted small mb-2"><i class="bi bi-shop"></i> <?= htmlspecialchars($item['s_name']) ?></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="fw-bold cc-text-coffee"><?= number_format($item['f_price'],2) ?> Rs.</div>
+                        <a href="food_item.php?f_id=<?= $item['f_id'] ?>" class="btn btn-sm btn-cc-primary">Order</a>
+                    </div>
+                </div>
+            </div>
+            <?php }
+            } else { ?>
+            <div class="text-muted">No trending items yet.</div>
+            <?php } ?>
+        </div>
 
+        <!-- Available Shops -->
+        <h3 class="cc-text-coffee mb-4"><i class="bi bi-shop"></i> Available Cafes</h3>
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4">
             <?php
             $query = "SELECT s_id,s_name,s_openhour,s_closehour,s_status,s_preorderstatus,s_pic FROM shop
-            WHERE (s_preorderstatus = 1) OR (s_preorderstatus = 0 AND (CURTIME() BETWEEN s_openhour AND s_closehour))
-            ORDER BY s_name";
+            WHERE (s_preorderstatus = 1) OR (s_preorderstatus = 0 AND (CURTIME() BETWEEN s_openhour AND s_closehour))";
             $result = $mysqli->query($query);
-            if($result->num_rows > 0){
+            if($result && $result->num_rows > 0){
                 while($row = $result->fetch_array()){
             ?>
             <div class="col">
-                <a href="/CafeConnect/customer/shop_menu.php?s_id=<?= $row["s_id"] ?>" class="text-decoration-none text-dark">
-                    <div class="card rounded-25 feature-card">
-                        <img <?php
-                            if(is_null($row["s_pic"])){echo "src='/CafeConnect/assets/img/default.jpg'";}
-                            else{echo "src=\"/CafeConnect/assets/img/{$row['s_pic']}\"";}
-                        ?> style="width:100%; height:175px; object-fit:cover;"
-                            class="card-img-top rounded-25 img-fluid" alt="<?= htmlspecialchars($row["s_name"]) ?>">
-                        <div class="card-body">
-                            <h4 class="card-title"><?= htmlspecialchars($row["s_name"]) ?></h4>
-                            <p class="card-text text-muted">
-                                <i class="bi bi-clock"></i> 
-                                <?= date('H:i', strtotime($row["s_openhour"])) . ' - ' . date('H:i', strtotime($row["s_closehour"])) ?>
-                            </p>
-                            <p class="card-text">
-                                <?php if($row["s_status"] == 1): ?>
-                                    <span class="badge bg-success">Open Now</span>
-                                <?php else: ?>
-                                    <span class="badge bg-secondary">Closed</span>
-                                <?php endif; ?>
-                                
-                                <?php if($row["s_preorderstatus"] == 1): ?>
-                                    <span class="badge bg-warning text-dark">Pre-order Available</span>
-                                <?php endif; ?>
-                            </p>
-                            <div class="text-center mt-3">
-                                <span class="btn btn-outline-primary w-100">View Menu</span>
+                <a href="shop_menu.php?s_id=<?= $row['s_id'] ?>" class="text-decoration-none">
+                    <div class="cc-card">
+                        <img src="<?= is_null($row['s_pic']) ? '../assets/img/default.jpg' : '../assets/img/'.$row['s_pic'] ?>" 
+                             class="cc-card-image" alt="<?= htmlspecialchars($row['s_name']) ?>">
+                        <div class="p-3">
+                            <h4 class="cc-text-espresso mb-2"><?= htmlspecialchars($row['s_name']) ?></h4>
+                            <?php 
+                                $open = explode(":",$row["s_openhour"]);
+                                $close = explode(":",$row["s_closehour"]);
+                            ?>
+                            <p class="text-muted small mb-2"><i class="bi bi-clock"></i> <?= $open[0].":".$open[1]." - ".$close[0].":".$close[1] ?></p>
+                            <div class="mb-3">
+                                <?php 
+                                    $now = date('H:i:s');
+                                    if((($now < $row["s_openhour"])||($now > $row["s_closehour"]))||($row["s_status"]==0)){
+                                ?>
+                                <span class="cc-badge cc-badge-closed">Closed</span>
+                                <?php }else{ ?>
+                                <span class="cc-badge cc-badge-open">Open Now</span>
+                                <?php }
+                                    if($row["s_preorderstatus"]==1){
+                                ?>
+                                <span class="cc-badge cc-badge-preorder">Pre-order Available</span>
+                                <?php } ?>
+                            </div>
+                            <div class="text-center">
+                                <span class="btn-cc-primary w-100 d-block">View Menu</span>
                             </div>
                         </div>
                     </div>
@@ -194,9 +149,7 @@ if (!isset($_SESSION['cid'])) {
             <?php }} ?>
         </div>
     </div>
-
-    <!-- Footer -->
+    <div class="mt-5"></div>
     <?php include('../includes/footer_customer.php'); ?>
-
 </body>
 </html>

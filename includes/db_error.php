@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/login.css" rel="stylesheet">
 
-    <title>Database Error | Sai Cafe</title>
+    <title>Database Error | CafeConnect</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -31,18 +31,15 @@
     <div class="container form-signin text-center restricted mt-auto">
             <i class="mt-4 bi bi-hdd-network-fill text-danger h1 display-2"></i>
             <h3 class="mt-2 mb-3 fw-normal text-bold">Connection Error</h3>
-            <p class="mb-3 fw-normal text-bold text-wrap">Cannot connect to Sai Cafe database right now.</p>
+            <p class="mb-3 fw-normal text-bold text-wrap">Cannot connect to CafeConnect database right now.</p>
             <a class="btn btn-danger btn-sm w-50" href="index.php">Try again.</a>
     </div>
 
     <footer class="text-center text-white">
   <!-- Copyright -->
   <div class="text-center p-2 p-2 mb-1 bg-dark text-white">
-    <p class="text-white">© 2024 Copyright : Sai Group</p>
-    <p class="text-white">Developed by :</p>
-    <p class="text-white">&nbsp;1. Vraj
-        &nbsp;2. Raj
-        &nbsp;3. Saikiran</p>
+    <p class="text-white">© 2024 Copyright : CafeConnect</p>
+    <p class="text-white">Developed by : Vraj Patel</p>
   </div>
   <!-- Copyright -->
 </footer>

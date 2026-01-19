@@ -16,6 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/menu.css" rel="stylesheet">
+    <link href="../assets/css/cafeconnect-design-system.css" rel="stylesheet">
+    <style>
+        body { padding-top: 85px; }
+    </style>
     <title>Shop Menu | CafeConnect</title>
 </head>
 
@@ -80,22 +84,20 @@
                     background-size: cover; background-repeat: no-repeat;
                     background-position: center;">
             </div>
-            <h1 class="display-5 strong"><?php echo $shop_row["s_name"];?></h1>
+            <h1 class="display-5 cc-text-coffee"><?php echo htmlspecialchars($shop_row["s_name"]);?></h1>
             <ul class="list-unstyled">
                 <li class="my-2">
                     <?php 
                         $now = date('H:i:s');
                         if((($now < $shop_row["s_openhour"])||($now > $shop_row["s_closehour"]))||($shop_row["s_status"]==0)){
                     ?>
-                    <span class="badge rounded-pill bg-danger">Closed</span>
+                    <span class="cc-badge cc-badge-closed">Closed</span>
                     <?php }else{ ?>
-                    <span class="badge rounded-pill bg-success">Open</span>
+                    <span class="cc-badge cc-badge-open">Open Now</span>
                     <?php }
                         if($shop_row["s_preorderstatus"]==1){
                     ?>
-                    <span class="badge rounded-pill bg-success">Pre-order Available</span>
-                    <?php }else{ ?>
-                    <span class="badge rounded-pill bg-danger">Pre-order Unavailable</span>
+                    <span class="cc-badge cc-badge-preorder">Pre-order Available</span>
                     <?php } ?>
                 </li>
                 <li class=""><?php echo $shop_row["s_location"];?></li>
@@ -111,7 +113,7 @@
         </div>
 
         <!-- GRID MENUS SELECTION -->
-        <h3 class="border-top py-3 mt-2">Menu</h3>
+        <h3 class="cc-text-coffee py-3 mt-2"><i class="bi bi-cup-hot"></i> Menu</h3>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 align-items-stretch mb-1">
 
         <?php
@@ -124,28 +126,19 @@
         ?>
             <!-- GRID EACH MENU -->
             <div class="col">
-                <div class="card rounded-25 mb-4">
-                    <a href="/CafeConnect/customer/food_item.php?<?php echo "s_id=".$food_row["s_id"]."&f_id=".$food_row["f_id"]?>" class="text-decoration-none text-dark">
-                        <div class="card-img-top">
-                            <img 
-                                <?php
-                                if(is_null($food_row["f_pic"])){echo "src='/CafeConnect/assets/img/default.jpg'";}
-                                else{echo "src=\"/CafeConnect/assets/img/{$food_row['f_pic']}\"";}
-                                ?> 
-                                style="width:100%; height:125px; object-fit:cover;"
-                                class="img-fluid" alt="<?php echo $food_row["f_name"]?>">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title fs-5"><?php echo $food_row["f_name"]?></h5>
-                            <p class="card-text"><?php echo $food_row["f_price"]?> Rs. </p>
-                            <a href="/CafeConnect/customer/food_item.php?<?php echo "s_id=".$food_row["s_id"]."&f_id=".$food_row["f_id"]?>" class="btn btn-sm mt-3 btn-outline-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-cart-plus" viewBox="0 0 16 16">
-                                    <path
-                                        d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                                    <path
-                                        d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                </svg> Add to cart
+                <div class="cc-card mb-4">
+                    <a href="/CafeConnect/customer/food_item.php?<?php echo "s_id=".$food_row["s_id"]."&f_id=".$food_row["f_id"]?>" class="text-decoration-none">
+                        <img 
+                            <?php
+                            if(is_null($food_row["f_pic"])){echo "src='/CafeConnect/assets/img/default.jpg'";}
+                            else{echo "src=\"/CafeConnect/assets/img/{$food_row['f_pic']}\"";}
+                            ?> 
+                            class="cc-card-image" alt="<?php echo htmlspecialchars($food_row["f_name"])?>">
+                        <div class="p-3">
+                            <h5 class="cc-text-espresso mb-2"><?php echo htmlspecialchars($food_row["f_name"])?></h5>
+                            <p class="fw-bold cc-text-coffee mb-3"><?php echo $food_row["f_price"]?> Rs.</p>
+                            <a href="/CafeConnect/customer/food_item.php?<?php echo "s_id=".$food_row["s_id"]."&f_id=".$food_row["f_id"]?>" class="btn-cc-primary btn-sm w-100 text-center d-block">
+                                <i class="bi bi-cart-plus"></i> Add to cart
                             </a>
                         </div>
                     </a>
