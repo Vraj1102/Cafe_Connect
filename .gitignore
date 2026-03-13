@@ -1,5 +1,10 @@
 # CafeConnect - Git Ignore Rules
 
+# License file
+LICENSE
+LICENSE.md
+LICENSE.txt
+
 # Configuration files with sensitive data
 config/stripe_config.php
 config/config.php
